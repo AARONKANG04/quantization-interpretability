@@ -1,0 +1,17 @@
+[project]
+name = "qi-webui"
+version = "0.1.0"
+description = "Local trace browser for the quantization-interpretability evals and token KL dumps"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "pyarrow>=16",
+  "transformers>=4.53",
+  "python-dotenv>=1.0",
+  "numpy>=1.26",  # already pulled in by transformers; data.py uses it directly
+]
+
+# Not a package: server.py and data.py are plain modules run with `uv run server.py`.
+[tool.uv]
+package = false

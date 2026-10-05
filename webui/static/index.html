@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Traces · quantization-interpretability</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app">
+    <aside id="sidebar" class="sidebar">
+      <div class="side-top">
+        <div class="side-row">
+          <div id="task-switch" class="seg full" role="tablist"></div>
+          <button id="btn-collapse" class="icon-btn" title="Hide sidebar" aria-label="Hide sidebar">
+            <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor"/><path d="M6 3v10" stroke="currentColor"/></svg>
+          </button>
+        </div>
+        <div id="side-tools" class="side-row"></div>
+      </div>
+      <div id="list" class="list"><div id="list-spacer" class="list-spacer"></div></div>
+      <div id="side-foot" class="side-foot"></div>
+    </aside>
+    <main class="main">
+      <header id="topbar" class="topbar">
+        <button id="btn-expand" class="icon-btn hidden" title="Show sidebar" aria-label="Show sidebar">
+          <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><rect x="1.5" y="2.5" width="13" height="11" rx="2" fill="none" stroke="currentColor"/><path d="M6 3v10" stroke="currentColor"/></svg>
+        </button>
+        <div id="crumb" class="crumb"></div>
+        <div id="chips" class="chips"></div>
+        <div class="actions">
+          <button id="btn-conditions" class="btn" type="button">Conditions</button>
+          <button id="btn-filters" class="btn" type="button">Filters</button>
+          <button id="btn-more" class="btn btn-more" type="button" title="Settings" aria-label="Settings">⋯</button>
+        </div>
+      </header>
+      <section id="content" class="content"></section>
+    </main>
+  </div>
+  <div id="popover" class="popover hidden" role="dialog"></div>
+  <div id="tooltip" class="tooltip hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
