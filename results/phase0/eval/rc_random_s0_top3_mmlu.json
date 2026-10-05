@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "git_sha": "37599bc",
+    "args": {
+      "ckpt": "/data/ckpt/random_s0_top3",
+      "name": "rc_random_s0_top3_mmlu",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "mmlu",
+      "dtype": null,
+      "limit": 70,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.8,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": false
+    },
+    "started": "2026-10-05T04:15:40",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/random_s0_top3",
+  "results": {
+    "mmlu": {
+      "metric": "acc,none",
+      "value": 0.5942355889724311,
+      "all_metrics": {
+        "sample_len": 3990,
+        "acc,none": 0.5942355889724311,
+        "acc_stderr,none": 0.007460027239220246
+      },
+      "num_fewshot": 5,
+      "raw_dir": "/data/lm_eval_raw/rc_random_s0_top3_mmlu/mmlu"
+    }
+  }
+}

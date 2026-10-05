@@ -1,5 +1,5 @@
 {
-  "git_sha": "unknown",
+  "git_sha": "37599bc",
   "args": {
     "scheme": "fp8_e4m3",
     "out": "/data/ckpt/q3",
@@ -11,8 +11,8 @@
     "seed": 0,
     "no_save": false
   },
-  "started": "2026-10-05T00:45:24",
-  "host": "aaron-dppo-rlvr",
+  "started": "2026-10-05T04:50:26",
+  "host": "aaron-rlvr-gigpo",
   "summary": {
     "numel": 3208642560,
     "n_matrices": 238,

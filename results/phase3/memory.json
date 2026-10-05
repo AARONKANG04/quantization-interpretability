@@ -1,0 +1,101 @@
+{
+  "git_sha": "b1e02a4",
+  "args": {
+    "ref": "bf16_rep",
+    "quant": "q1_rep",
+    "raw_root": null,
+    "tasks": "gsm8k_cot,mmlu",
+    "selections": "/home/aaron/quantization-interpretability/results/phase3/selections.json",
+    "primary": "fg_proj",
+    "target": 0.8,
+    "out": "/home/aaron/quantization-interpretability/results/phase3/budget_sweep.json",
+    "memory_out": "/home/aaron/quantization-interpretability/results/phase3/memory.json"
+  },
+  "started": "2026-10-05T05:25:39",
+  "host": "aaron-rlvr-gigpo",
+  "layer_bytes": 135659520.0,
+  "rows": [
+    {
+      "budget": 0.01,
+      "extra_mb": 46.123648,
+      "recovery_frac": 0.1954022988505747,
+      "layer_fallback_match": {
+        "n_layers": 5,
+        "acc": 0.3601213040181956,
+        "recovered_pts": 0.021986353297952996,
+        "recovered_ci": [
+          0.001516300227445034,
+          0.04245640636846096
+        ],
+        "recovery_frac": 0.3333333333333333,
+        "extra_bytes": 678297600.0,
+        "extra_mb": 678.2976
+      },
+      "memory_ratio": 0.06799913194444444,
+      "layer_fallback_never_reaches": false,
+      "largest_layer_fallback": {
+        "n_layers": 8,
+        "acc": 0.36542835481425323,
+        "recovered_pts": 0.027293404094010616,
+        "recovered_ci": [
+          0.006065200909780136,
+          0.04852160727824109
+        ],
+        "recovery_frac": 0.41379310344827586,
+        "extra_bytes": 1085276160.0,
+        "extra_mb": 1085.27616
+      }
+    },
+    {
+      "budget": 0.02,
+      "extra_mb": 92.247296,
+      "recovery_frac": 0.17241379310344826,
+      "layer_fallback_match": {
+        "n_layers": 3,
+        "acc": 0.34950720242608035,
+        "recovered_pts": 0.011372251705837756,
+        "recovered_ci": [
+          -0.006823351023502654,
+          0.030326004548900682
+        ],
+        "recovery_frac": 0.17241379310344826,
+        "extra_bytes": 406978560.0,
+        "extra_mb": 406.97856
+      },
+      "memory_ratio": 0.22666377314814815,
+      "layer_fallback_never_reaches": false,
+      "largest_layer_fallback": {
+        "n_layers": 8,
+        "acc": 0.36542835481425323,
+        "recovered_pts": 0.027293404094010616,
+        "recovered_ci": [
+          0.006065200909780136,
+          0.04852160727824109
+        ],
+        "recovery_frac": 0.41379310344827586,
+        "extra_bytes": 1085276160.0,
+        "extra_mb": 1085.27616
+      }
+    },
+    {
+      "budget": 0.05,
+      "extra_mb": 230.621184,
+      "recovery_frac": 0.4482758620689655,
+      "layer_fallback_match": null,
+      "memory_ratio": null,
+      "layer_fallback_never_reaches": true,
+      "largest_layer_fallback": {
+        "n_layers": 8,
+        "acc": 0.36542835481425323,
+        "recovered_pts": 0.027293404094010616,
+        "recovered_ci": [
+          0.006065200909780136,
+          0.04852160727824109
+        ],
+        "recovery_frac": 0.41379310344827586,
+        "extra_bytes": 1085276160.0,
+        "extra_mb": 1085.27616
+      }
+    }
+  ]
+}

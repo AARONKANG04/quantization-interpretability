@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "git_sha": "37599bc",
+    "args": {
+      "ckpt": "/data/ckpt/mix_fg_proj_0020",
+      "name": "mix_fg_proj_0020",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "gsm8k_cot",
+      "dtype": null,
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.8,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": false
+    },
+    "started": "2026-10-05T04:20:08",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/mix_fg_proj_0020",
+  "results": {
+    "gsm8k_cot": {
+      "metric": "exact_match,strict-match",
+      "value": 0.34950720242608035,
+      "all_metrics": {
+        "sample_len": 1319,
+        "exact_match,strict-match": 0.34950720242608035,
+        "exact_match_stderr,strict-match": 0.013133836511705995,
+        "exact_match,flexible-extract": 0.3646702047005307,
+        "exact_match_stderr,flexible-extract": 0.013258428375662245
+      },
+      "num_fewshot": 8,
+      "raw_dir": "/data/lm_eval_raw/mix_fg_proj_0020/gsm8k_cot"
+    }
+  }
+}

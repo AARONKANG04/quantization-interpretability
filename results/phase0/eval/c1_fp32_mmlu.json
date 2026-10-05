@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "git_sha": "6b9b8fb",
+    "args": {
+      "ckpt": "/data/ckpt/bf16",
+      "name": "c1_fp32_mmlu",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "mmlu",
+      "dtype": "float32",
+      "limit": 70,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": null,
+      "backend": "hf",
+      "hf_batch": 4,
+      "reuse": false
+    },
+    "started": "2026-10-05T05:10:50",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/bf16",
+  "results": {
+    "mmlu": {
+      "metric": "acc,none",
+      "value": 0.6100250626566416,
+      "all_metrics": {
+        "sample_len": 3990,
+        "acc,none": 0.6100250626566416,
+        "acc_stderr,none": 0.007364414583691018
+      },
+      "num_fewshot": 5,
+      "raw_dir": "/data/lm_eval_raw/c1_fp32_mmlu/mmlu"
+    }
+  }
+}

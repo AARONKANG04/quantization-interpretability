@@ -1,0 +1,186 @@
+{
+  "git_sha": "b1e02a4",
+  "args": {
+    "layer": 17,
+    "steer_dir": "/home/aaron/quantization-interpretability/results/phase2/steer",
+    "ref": "bf16_rep",
+    "quant": "q1_rep",
+    "raw_root": null,
+    "out": "/home/aaron/quantization-interpretability/results/phase2/steering.json"
+  },
+  "started": "2026-10-05T05:25:39",
+  "host": "aaron-rlvr-gigpo",
+  "layer": 17,
+  "baseline_acc": 0.346,
+  "n_items": 500,
+  "arms": {
+    "bf16_gain": {
+      "mode": "bf16_gain",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.424,
+      "delta_vs_none": 0.078,
+      "ci": [
+        0.038,
+        0.118
+      ],
+      "significant": true,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 1.114285714285714
+    },
+    "full_residual": {
+      "mode": "full_residual",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.42,
+      "delta_vs_none": 0.074,
+      "ci": [
+        0.036,
+        0.112
+      ],
+      "significant": true,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 1.057142857142857
+    },
+    "gain": {
+      "mode": "gain",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.354,
+      "delta_vs_none": 0.008,
+      "ci": [
+        -0.012,
+        0.028
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.11428571428571428
+    },
+    "gain_random": {
+      "mode": "gain_random",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.346,
+      "delta_vs_none": 0.0,
+      "ci": [
+        -0.02,
+        0.02
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.0
+    },
+    "gain_top": {
+      "mode": "gain",
+      "set": "top",
+      "n_feats": 641,
+      "acc": 0.37,
+      "delta_vs_none": 0.024,
+      "ci": [
+        0.0,
+        0.05
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.3428571428571428
+    },
+    "mean_shift": {
+      "mode": "mean_shift",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.372,
+      "delta_vs_none": 0.026,
+      "ci": [
+        0.002,
+        0.052
+      ],
+      "significant": true,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.3714285714285714
+    },
+    "oracle": {
+      "mode": "oracle",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.34,
+      "delta_vs_none": -0.006,
+      "ci": [
+        -0.024,
+        0.012
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": -0.0857142857142857
+    },
+    "oracle_all": {
+      "mode": "oracle",
+      "set": "all",
+      "n_feats": 65536,
+      "acc": 0.39,
+      "delta_vs_none": 0.044,
+      "ci": [
+        0.008,
+        0.08
+      ],
+      "significant": true,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.6285714285714284
+    },
+    "oracle_random": {
+      "mode": "oracle_random",
+      "set": "survival",
+      "n_feats": 641,
+      "acc": 0.362,
+      "delta_vs_none": 0.016,
+      "ci": [
+        -0.006,
+        0.038
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.22857142857142856
+    },
+    "oracle_survival_5pct": {
+      "mode": "oracle",
+      "set": "survival_5pct",
+      "n_feats": 3205,
+      "acc": 0.352,
+      "delta_vs_none": 0.006,
+      "ci": [
+        -0.012,
+        0.026
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.0857142857142857
+    },
+    "oracle_top": {
+      "mode": "oracle",
+      "set": "top",
+      "n_feats": 641,
+      "acc": 0.356,
+      "delta_vs_none": 0.01,
+      "ci": [
+        -0.018,
+        0.038
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.14285714285714285
+    }
+  },
+  "ref_acc_same_items": 0.416,
+  "ref_acc_full": 0.4040940106141016,
+  "quant_acc_same_items": 0.356,
+  "quant_acc_full": 0.33813495072024263,
+  "engine_check_hf_minus_vllm_full_set": {
+    "delta": -0.001516300227445034,
+    "ci": [
+      -0.01288855193328279,
+      0.009855951478392721
+    ],
+    "n": 1319,
+    "acc_hf": 0.3366186504927976,
+    "acc_vllm": 0.33813495072024263
+  }
+}

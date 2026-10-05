@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "git_sha": "37599bc",
+    "args": {
+      "ckpt": "/data/ckpt/q3",
+      "name": "q3",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "gsm8k_cot,mmlu",
+      "dtype": null,
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.8,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": false
+    },
+    "started": "2026-10-05T04:50:35",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/q3",
+  "results": {
+    "gsm8k_cot": {
+      "metric": "exact_match,strict-match",
+      "value": 0.40106141015921154,
+      "all_metrics": {
+        "sample_len": 1319,
+        "exact_match,strict-match": 0.40106141015921154,
+        "exact_match_stderr,strict-match": 0.013500158922245546,
+        "exact_match,flexible-extract": 0.42153146322971946,
+        "exact_match_stderr,flexible-extract": 0.013601824409483265
+      },
+      "num_fewshot": 8,
+      "raw_dir": "/data/lm_eval_raw/q3/gsm8k_cot"
+    },
+    "mmlu": {
+      "metric": "acc,none",
+      "value": 0.5940749181028343,
+      "all_metrics": {
+        "sample_len": 14042,
+        "acc,none": 0.5940749181028343,
+        "acc_stderr,none": 0.0038909821266326743
+      },
+      "num_fewshot": 5,
+      "raw_dir": "/data/lm_eval_raw/q3/mmlu"
+    }
+  }
+}

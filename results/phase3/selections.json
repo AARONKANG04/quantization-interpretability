@@ -1,0 +1,199 @@
+{
+  "git_sha": "37599bc",
+  "args": {
+    "scores": "/data/saliency/scores_L17.pt",
+    "budgets": "0.01,0.02,0.05",
+    "ranked": "results/phase1/ranked_order.json",
+    "out": "results/phase3/selections.json",
+    "selection_dir": "/data/selections"
+  },
+  "started": "2026-10-05T04:15:06",
+  "host": "aaron-rlvr-gigpo",
+  "total_weights": 3208642560,
+  "layer_weights": 94371840.0,
+  "selections": [
+    {
+      "method": "fg_proj",
+      "budget_frac": 0.01,
+      "protected_weights": 32086016,
+      "n_matrices": 84,
+      "n_rows": 3904,
+      "n_cols": 21097,
+      "extra_bytes": 46123648.0,
+      "bytes_mixed": 1850985088.0,
+      "file": "/data/selections/fg_proj_0010.json"
+    },
+    {
+      "method": "fg_proj",
+      "budget_frac": 0.02,
+      "protected_weights": 64172032,
+      "n_matrices": 85,
+      "n_rows": 7739,
+      "n_cols": 39885,
+      "extra_bytes": 92247296.0,
+      "bytes_mixed": 1897108736.0,
+      "file": "/data/selections/fg_proj_0020.json"
+    },
+    {
+      "method": "fg_proj",
+      "budget_frac": 0.05,
+      "protected_weights": 160432128,
+      "n_matrices": 114,
+      "n_rows": 19962,
+      "n_cols": 71522,
+      "extra_bytes": 230621184.0,
+      "bytes_mixed": 2035482624.0,
+      "file": "/data/selections/fg_proj_0050.json"
+    },
+    {
+      "method": "mag",
+      "budget_frac": 0.01,
+      "protected_weights": 32085504,
+      "n_matrices": 169,
+      "n_rows": 0,
+      "n_cols": 24738,
+      "extra_bytes": 46122912.0,
+      "bytes_mixed": 1850984352.0,
+      "file": "/data/selections/mag_0010.json"
+    },
+    {
+      "method": "mag",
+      "budget_frac": 0.02,
+      "protected_weights": 64172544,
+      "n_matrices": 202,
+      "n_rows": 0,
+      "n_cols": 52695,
+      "extra_bytes": 92248032.0,
+      "bytes_mixed": 1897109472.0,
+      "file": "/data/selections/mag_0020.json"
+    },
+    {
+      "method": "mag",
+      "budget_frac": 0.05,
+      "protected_weights": 160431616,
+      "n_matrices": 228,
+      "n_rows": 0,
+      "n_cols": 133384,
+      "extra_bytes": 230620448.0,
+      "bytes_mixed": 2035481888.0,
+      "file": "/data/selections/mag_0050.json"
+    },
+    {
+      "method": "rand",
+      "budget_frac": 0.01,
+      "protected_weights": 32086016,
+      "n_matrices": 68,
+      "n_rows": 0,
+      "n_cols": 31334,
+      "extra_bytes": 46123648.0,
+      "bytes_mixed": 1850985088.0,
+      "file": "/data/selections/rand_0010.json"
+    },
+    {
+      "method": "rand",
+      "budget_frac": 0.02,
+      "protected_weights": 64172032,
+      "n_matrices": 68,
+      "n_rows": 0,
+      "n_cols": 62668,
+      "extra_bytes": 92247296.0,
+      "bytes_mixed": 1897108736.0,
+      "file": "/data/selections/rand_0020.json"
+    },
+    {
+      "method": "rand",
+      "budget_frac": 0.05,
+      "protected_weights": 160432128,
+      "n_matrices": 136,
+      "n_rows": 14026,
+      "n_cols": 114769,
+      "extra_bytes": 230621184.0,
+      "bytes_mixed": 2035482624.0,
+      "file": "/data/selections/rand_0050.json"
+    },
+    {
+      "method": "klg",
+      "budget_frac": 0.01,
+      "protected_weights": 32086016,
+      "n_matrices": 146,
+      "n_rows": 6582,
+      "n_cols": 10590,
+      "extra_bytes": 46123648.0,
+      "bytes_mixed": 1850985088.0,
+      "file": "/data/selections/klg_0010.json"
+    },
+    {
+      "method": "klg",
+      "budget_frac": 0.02,
+      "protected_weights": 64172544,
+      "n_matrices": 180,
+      "n_rows": 13417,
+      "n_cols": 18681,
+      "extra_bytes": 92248032.0,
+      "bytes_mixed": 1897109472.0,
+      "file": "/data/selections/klg_0020.json"
+    },
+    {
+      "method": "klg",
+      "budget_frac": 0.05,
+      "protected_weights": 160431616,
+      "n_matrices": 205,
+      "n_rows": 32635,
+      "n_cols": 36996,
+      "extra_bytes": 230620448.0,
+      "bytes_mixed": 2035481888.0,
+      "file": "/data/selections/klg_0050.json"
+    }
+  ],
+  "layer_fallback": [
+    {
+      "n_layers": 1,
+      "extra_bytes": 135659520.0,
+      "layers": [
+        11
+      ]
+    },
+    {
+      "n_layers": 2,
+      "extra_bytes": 271319040.0,
+      "layers": [
+        11,
+        17
+      ]
+    },
+    {
+      "n_layers": 3,
+      "extra_bytes": 406978560.0,
+      "layers": [
+        11,
+        17,
+        10
+      ]
+    },
+    {
+      "n_layers": 5,
+      "extra_bytes": 678297600.0,
+      "layers": [
+        11,
+        17,
+        10,
+        4,
+        14
+      ]
+    },
+    {
+      "n_layers": 8,
+      "extra_bytes": 1085276160.0,
+      "layers": [
+        11,
+        17,
+        10,
+        4,
+        14,
+        5,
+        23,
+        0
+      ]
+    }
+  ]
+}

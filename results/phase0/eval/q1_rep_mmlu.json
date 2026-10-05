@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "git_sha": "37599bc",
+    "args": {
+      "ckpt": "/data/ckpt/q1",
+      "name": "q1_rep_mmlu",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "mmlu",
+      "dtype": null,
+      "limit": 70,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.8,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": false
+    },
+    "started": "2026-10-05T04:38:47",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/q1",
+  "results": {
+    "mmlu": {
+      "metric": "acc,none",
+      "value": 0.5962406015037593,
+      "all_metrics": {
+        "sample_len": 3990,
+        "acc,none": 0.5962406015037593,
+        "acc_stderr,none": 0.007427496473651731
+      },
+      "num_fewshot": 5,
+      "raw_dir": "/data/lm_eval_raw/q1_rep_mmlu/mmlu"
+    }
+  }
+}

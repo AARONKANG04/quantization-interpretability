@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "git_sha": "37599bc",
+    "args": {
+      "ckpt": "/data/ckpt/random_s0_top8",
+      "name": "rc_random_s0_top8",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "gsm8k_cot",
+      "dtype": null,
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.8,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": false
+    },
+    "started": "2026-10-05T04:17:46",
+    "host": "aaron-rlvr-gigpo"
+  },
+  "ckpt": "/data/ckpt/random_s0_top8",
+  "results": {
+    "gsm8k_cot": {
+      "metric": "exact_match,strict-match",
+      "value": 0.36997725549658833,
+      "all_metrics": {
+        "sample_len": 1319,
+        "exact_match,strict-match": 0.36997725549658833,
+        "exact_match_stderr,strict-match": 0.01329866120772713,
+        "exact_match,flexible-extract": 0.3858984078847612,
+        "exact_match_stderr,flexible-extract": 0.013409077471319173
+      },
+      "num_fewshot": 8,
+      "raw_dir": "/data/lm_eval_raw/rc_random_s0_top8/gsm8k_cot"
+    }
+  }
+}

@@ -109,3 +109,56 @@ Running record of results with their evidence files. Numbers here are copied fro
 - Reading across layers: the layer-17 feature basis records most of the damage (one third of its features lose
   survival correlation below 0.8), while at layer 29 the shift is large in norm but mostly along one shared direction
   that the SAE features ride together. Steering and saliency therefore use the layer-17 survival set.
+
+## 2026-10-05, Phase 1 accuracy level: layer restore curve (boxA, paired bootstrap vs NVFP4 on 1319 GSM8K items)
+
+- Restoring the N top-ranked layers to bf16 (ranked by single-layer KL recovery: 11, 17, 10, 4, 14, 5, 23, 0, ...)
+  recovers 9% / 13% / 17% / 33% / 41% of the GSM8K loss at N = 1 / 2 / 3 / 5 / 8 (N = 8: +2.7 [+0.6, +4.9] pts, recovery
+  41% [9%, 74%]). A random ordering of layers recovers 48% at N = 8 (37.0 vs 36.5); ranked minus random is -0.5 pts
+  at N = 8 and under +1 pt at every N, never significant. Neither 50% nor 80% recovery is reached with 8 layers (24% of
+  the network, 1.1 GB of extra memory). MMLU moves within noise throughout (loss 1.3 pts).
+- H1 is therefore NOT supported: no minority of layers carries most of the NVFP4 accuracy loss, and the KL ranking has
+  no predictive value for accuracy recovery over a random ranking. The single-layer KL recoveries already said so
+  (the best layer recovers 6.5% of the KL). Damage accumulates diffusely across layers.
+  results/phase1/restore_curve.json, results/LEDGER.md
+
+## 2026-10-05, Phase 0 completion on boxA (8x H100)
+
+- Replication across boxes and engines: bf16 40.41% and NVFP4 33.81% on GSM8K (boxS: 40.49 / 33.43), paired loss 6.60
+  [4.25, 8.95]; MMLU on the 4k subset 60.95% vs 59.62% (loss 1.33 [0.35, 2.33]). The unhooked transformers backend
+  gives 33.66% for NVFP4 vs 33.81% with vLLM (-0.2 [-1.3, +1.0]), so the two engines agree within noise.
+- FP8 per-channel (Q3) is indistinguishable from bf16 on every suite: GSM8K -0.30 [-1.97, +1.29], MMLU -0.15
+  [-0.75, +0.43] (plus the ARC-C and HellaSwag nulls from boxS). FP8 is a clean negative control for NVFP4.
+- fp32 noise floor on MMLU: +0.05 [-0.43, +0.55]; with GSM8K +0.08 [-1.36, +1.52] from boxS, G0.3 passes on both
+  headline suites. results/phase0/damage_table_bf16_rep.json, results/LEDGER.md
+
+## 2026-10-05, Phase 3: mixed precision budget sweep (boxA, paired bootstrap vs NVFP4 on 1319 GSM8K items)
+
+- Channel-level protection beats whole-layer fallback at equal memory, by a wide margin: magnitude-selected channels at
+  2% of weights (92 MB extra) recover 48% of the GSM8K loss (+3.2 [+1.1, +5.3] pts), the same as restoring the 8
+  top-ranked whole layers (1,085 MB, 41%, +2.7 [+0.6, +4.9]); at 5% (231 MB) magnitude recovers 51% (+3.3 [+1.4, +5.4]).
+  Whole-layer fallback never reaches 45% recovery within 8 layers.
+- The feature-guided saliency (FG-proj, primary) recovers 20% / 17% / 45% at 1% / 2% / 5% (+3.0 [+1.0, +4.9] at 5%) and
+  TIES with every baseline under the pre-registered rule (a paired win at two of three budgets): vs magnitude -0.4, -2.0,
+  -0.4 pts; vs KL-gradient +0.5, -0.4, +0.4; vs random channels -0.2, -0.3, +1.6 (all CIs cross zero). Random channels
+  recover about 22% at every budget. The alternative resume wording from the plan applies: channel-level protection
+  beats whole-layer fallback; feature guidance does not beat magnitude.
+- 80% recovery is not reached at any budget up to 5%; MMLU deltas are all within noise (loss only 1.3 pts).
+  results/phase3/budget_sweep.json, results/phase3/memory.json, results/LEDGER.md
+
+## 2026-10-05, Phase 2: interventions at layer 17 (boxA, 500 GSM8K items, paired bootstrap vs no steering)
+
+- No 1% feature set carries the accuracy loss. Gain correction on the 641 least-surviving features +0.8 [-1.2, +2.8]
+  (gains are all within a few percent of 1.0, so this was expected to be null), random-feature gain +0.0; the ORACLE
+  patch that sets the same 641 features to their bf16 values gives -0.6 [-2.4, +1.2], the 641 highest-energy features
+  +1.0 [-1.8, +3.8], 641 random features +1.6 [-0.6, +3.8], and the 3,205 (5%) least-surviving features +0.6 [-1.2, +2.6].
+- The damage is nevertheless largely in the SAE basis: patching ALL 65,536 features (the whole SAE-explained shift,
+  leaving the SAE error term) recovers +4.4 [+0.8, +8.0] pts, 63% of the bf16 gap on these items, and replacing the
+  entire layer-17 residual stream recovers +7.4 [+3.6, +11.2] (106%, i.e. bf16 accuracy) even though layers 18 to 33
+  stay quantized. So the loss is fully formed by layer 17 and is spread over thousands of features and the SAE error,
+  not concentrated in the features that quantization visibly damages.
+- The best deployable intervention is the simplest: a constant mean-shift bias at layer 17 (estimated on 64 calibration
+  sequences, no bf16 model at inference) recovers +2.6 [+0.2, +5.2] pts, 37% of the gap and significant; gain correction
+  on the highest-energy features +2.4 [+0.0, +5.0] is borderline. The gated full-set gain run was skipped (subset delta
+  under 1 pt). Sanity arms: the bf16 model with the gain hook 42.4 vs bf16 41.6 on the same items.
+  results/phase2/steering.json, results/phase2/steer/*.json, results/LEDGER.md
