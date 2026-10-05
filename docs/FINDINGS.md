@@ -55,3 +55,21 @@ Running record of results with their evidence files. Numbers here are copied fro
   mean-shift baseline tests whether that component carries the accuracy loss.
 - Labels (frequency ratio Q1/bf16): 2,168 suppressed (<0.5x), 6,330 amplified (>2x), 352 newly dead, 338 newly
   alive, 54,919 stable. results/phase2/shift/q1_L17_summary.json; C2 control and layer 29 pending.
+
+## 2026-10-05, Phase 2: NVFP4 vs matched noise at layer 17 (boxS)
+
+- Energy concentration is a property of the SAE basis, not of quantization: the matched-noise control shows the
+  same curve (top 1% of features = 62.6% of per-feature shift energy vs 62.8% for NVFP4; Gini 0.945 vs 0.942), and
+  the top-energy features are a handful of extremely frequent, very large-activation dense features (one fires on
+  24% of tokens with mean activation about 550; several others on 1-3% of tokens with activations above 1,000).
+  Per the pre-registered rule, the "concentrated energy" claim is withdrawn. results/phase2/shift/{q1,c2}_L17_summary.json
+- The survival metric separates the conditions: among 27,106 features with at least 200 bf16 activations, NVFP4
+  drives 12.7% below a survival correlation of 0.5 (37.7% below 0.8; median 0.86) while matched Gaussian noise of
+  the same Frobenius error drives 22.4% below 0.5 (46.7% below 0.8; median 0.82). NVFP4 is less destructive at
+  the feature level than isotropic noise of the same size. results/phase2/survival_L17.json
+- Damaged features are fragile features: median bf16 activation count 558 vs 5,174 overall and median peak 211 vs
+  594, matching Duan's finding that survival is predictable from full-precision statistics. 3,424 of the 3,446
+  NVFP4-damaged features are also noise-damaged (Jaccard 0.56 with the larger noise set).
+- Label asymmetry: NVFP4 amplifies more features than it suppresses (6,330 vs 2,168, frequency ratio >2 or <0.5),
+  noise mostly suppresses (2,745 vs 14,043). Only 7 of the top-641 energy features are suppressed, so steering
+  and saliency now use the 641 least-surviving features (correlation at or below 0.37) as the primary set.
