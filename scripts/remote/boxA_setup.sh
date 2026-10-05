@@ -8,7 +8,10 @@ set -a; . ./.env; set +a
 mountpoint -q /data || sudo -n scripts/remote/mount_data.sh data "$USER"
 mkdir -p logs /data/ckpt /data/kl /data/saes /data/buffers /data/lens /data/hf /data/lm_eval_raw /data/shift /data/saliency /data/selections
 command -v uv >/dev/null || (curl -LsSf https://astral.sh/uv/install.sh | sh)
-sudo -n apt-get update -qq >/dev/null 2>&1 || true; sudo -n apt-get install -y -qq python3.10-dev >/dev/null 2>&1 || true
+for i in $(seq 1 30); do  # apt may be locked by unattended upgrades right after boot
+  sudo -n apt-get update -qq >/dev/null 2>&1 && sudo -n apt-get install -y -qq python3.10-dev >/dev/null 2>&1 && break; sleep 10
+done
+dpkg -s python3.10-dev >/dev/null 2>&1 || echo "WARNING: python3.10-dev missing, triton kernels will not compile"
 grep -q UV_PROJECT_ENVIRONMENT ~/.bashrc || printf '\nexport PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf UV_PROJECT_ENVIRONMENT=/data/venv TOKENIZERS_PARALLELISM=false\n' >> ~/.bashrc
 uv sync --extra dev --extra box >/dev/null
 uv tool install -q "huggingface_hub[cli]" >/dev/null 2>&1 || true

@@ -6,7 +6,7 @@ name="${1:-data}"; owner="${2:-${SUDO_USER:-$USER}}"
 dev="/dev/disk/by-id/google-$name"
 if [ ! -e "$dev" ]; then
   # fall back to the only non-boot, non-local persistent disk
-  cand=$(ls /dev/disk/by-id/ | grep '^google-' | grep -v -e 'persistent-disk-0' -e 'local-ssd' -e '-part' || true)
+  cand=$(ls /dev/disk/by-id/ | grep '^google-' | grep -v -e 'persistent-disk-0' -e 'local-' -e '-part' || true)
   [ "$(echo "$cand" | grep -c .)" = 1 ] || { echo "cannot identify the data disk; candidates:"; echo "$cand"; exit 1; }
   dev="/dev/disk/by-id/$cand"
 fi
