@@ -24,9 +24,9 @@ for m in fg_proj mag klg rand; do for b in 0010 0020 0050; do
   e mix_eval_${m}_$b mix_build_${m}_$b "$P scripts/phase0_eval.py --ckpt /data/ckpt/mix_${m}_$b --name mix_${m}_$b --tasks gsm8k_cot --gpu-util 0.8 && $P scripts/phase0_eval.py --ckpt /data/ckpt/mix_${m}_$b --name mix_${m}_${b}_mmlu --tasks mmlu --limit 70 --gpu-util 0.8"
 done; done
 for mode in none gain gain_random mean_shift oracle oracle_random full_residual bf16_gain; do
-  e steer_$mode feats_ready "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode $mode --set suppressed --limit 500 --out results/phase2/steer/q1_L${L}_$mode.json"
+  e steer_$mode feats_ready "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode $mode --set top --limit 500 --out results/phase2/steer/q1_L${L}_$mode.json"
 done
-e steer_gain_full steer_gain "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set suppressed --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json"
+e steer_gain_full steer_gain "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set top --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json"
 e steer_none_full steer_none "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --mode none --limit 1319 --out results/phase2/steer/q1_L${L}_none_full.json"
 # --- fp32 noise floor through the transformers backend ---
 e c1_fp32_gsm8k "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name c1_fp32 --tasks gsm8k_cot --backend hf --dtype float32 --hf-batch 16"

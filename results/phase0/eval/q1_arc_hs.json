@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "git_sha": "unknown",
+    "args": {
+      "ckpt": "/data/ckpt/q1",
+      "name": "q1_arc_hs",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "arc_challenge,hellaswag",
+      "dtype": null,
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.45,
+      "backend": "vllm",
+      "hf_batch": 8
+    },
+    "started": "2026-10-05T02:52:39",
+    "host": "aaron-dppo-rlvr"
+  },
+  "ckpt": "/data/ckpt/q1",
+  "results": {
+    "arc_challenge": {
+      "metric": "acc_norm,none",
+      "value": 0.5255972696245734,
+      "all_metrics": {
+        "sample_len": 1172,
+        "acc,none": 0.5008532423208191,
+        "acc_stderr,none": 0.014611369529813265,
+        "acc_norm,none": 0.5255972696245734,
+        "acc_norm_stderr,none": 0.01459223088529896
+      },
+      "num_fewshot": 0,
+      "raw_dir": "/data/lm_eval_raw/q1_arc_hs/arc_challenge"
+    },
+    "hellaswag": {
+      "metric": "acc_norm,none",
+      "value": 0.7512447719577773,
+      "all_metrics": {
+        "sample_len": 10042,
+        "acc,none": 0.5625373431587333,
+        "acc_stderr,none": 0.004950598300667555,
+        "acc_norm,none": 0.7512447719577773,
+        "acc_norm_stderr,none": 0.004314081608624649
+      },
+      "num_fewshot": 0,
+      "raw_dir": "/data/lm_eval_raw/q1_arc_hs/hellaswag"
+    }
+  }
+}

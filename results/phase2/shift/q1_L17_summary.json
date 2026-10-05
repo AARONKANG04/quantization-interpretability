@@ -1,0 +1,91 @@
+{
+  "git_sha": "unknown",
+  "args": {
+    "layer": 17,
+    "width": "65k",
+    "l0": "medium",
+    "variant": "4b-pt",
+    "sae_file": null,
+    "model_a": "google/gemma-3-4b-pt",
+    "ckpt_b": "/data/ckpt/q1",
+    "name": "q1",
+    "tokens": [
+      "/data/kl/kl_2m.pt",
+      "/data/kl/lens_10m.pt",
+      "/data/kl/gsm8k_test.pt"
+    ],
+    "batch": 4,
+    "max_seqs": 0,
+    "out": "results/phase2/shift",
+    "store_dir": "/data/shift",
+    "chunk": 2048
+  },
+  "started": "2026-10-05T02:31:43",
+  "host": "aaron-dppo-rlvr",
+  "n_tokens": 12251136,
+  "n_features": 65536,
+  "n_active_either": 64107,
+  "shares": {
+    "explained": 0.9795028434687801,
+    "error": 0.10936418317753104,
+    "cross_explained_error": -0.08886701700661949,
+    "per_feature_sum_over_explained": 0.11518307758407809
+  },
+  "concentration": {
+    "n": 64107,
+    "frac_for_50": 0.0029325970642831516,
+    "frac_for_80": 0.04239786606766812,
+    "gini": 0.9421077189936853,
+    "share_at": {
+      "top_0.1pct": 0.4119357210914888,
+      "top_0.5pct": 0.5537815146960937,
+      "top_1pct": 0.6281937995314701,
+      "top_2pct": 0.7063097432737961,
+      "top_5pct": 0.8218081773894179,
+      "top_10pct": 0.9119935453016985,
+      "top_20pct": 0.9761103185361526,
+      "top_50pct": 0.9973654733395605
+    }
+  },
+  "concentration_per_activation": {
+    "n": 64107,
+    "frac_for_50": 0.021729296332693777,
+    "frac_for_80": 0.36911725708580967,
+    "gini": 0.6566409550707606,
+    "share_at": {
+      "top_0.1pct": 0.3156376805696796,
+      "top_0.5pct": 0.4211206670830987,
+      "top_1pct": 0.46286664485752405,
+      "top_2pct": 0.49591604206931306,
+      "top_5pct": 0.5500389968269299,
+      "top_10pct": 0.6092520897300074,
+      "top_20pct": 0.6949219869348446,
+      "top_50pct": 0.8634001912290454
+    }
+  },
+  "label_counts": {
+    "suppressed": 2168,
+    "amplified": 6330,
+    "newly_dead": 352,
+    "newly_alive": 338,
+    "stable": 54919,
+    "inactive": 1429
+  },
+  "files": [
+    {
+      "file": "/data/kl/kl_2m.pt",
+      "n_seqs": 978,
+      "seq_offset": 0
+    },
+    {
+      "file": "/data/kl/lens_10m.pt",
+      "n_seqs": 4883,
+      "seq_offset": 978
+    },
+    {
+      "file": "/data/kl/gsm8k_test.pt",
+      "n_seqs": 121,
+      "seq_offset": 5861
+    }
+  ]
+}
