@@ -31,6 +31,7 @@ def main():
     ap.add_argument("--gpu-util", type=float, default=None, help="override vLLM gpu_memory_utilization")
     ap.add_argument("--backend", default="vllm", choices=["vllm", "hf"], help="hf: transformers backend (fp32 reference)")
     ap.add_argument("--hf-batch", type=int, default=8)
+    ap.add_argument("--reuse", action="store_true", help="summarise an existing raw lm-eval run instead of running it again")
     args = ap.parse_args()
 
     suite = yaml.safe_load(Path(args.suite).read_text())
@@ -55,9 +56,13 @@ def main():
                "--output_path", str(raw), "--log_samples", "--seed", "1234"]
         if args.limit:
             cmd += ["--limit", str(args.limit)]
-        print(" ".join(cmd), flush=True)
-        subprocess.run(cmd, check=True, env={**os.environ, "TOKENIZERS_PARALLELISM": "false"})
         res_files = sorted(glob.glob(str(raw / "**" / "results_*.json"), recursive=True))
+        if args.reuse and res_files:
+            print("reusing", res_files[-1], flush=True)
+        else:
+            print(" ".join(cmd), flush=True)
+            subprocess.run(cmd, check=True, env={**os.environ, "TOKENIZERS_PARALLELISM": "false"})
+            res_files = sorted(glob.glob(str(raw / "**" / "results_*.json"), recursive=True))
         res = json.loads(Path(res_files[-1]).read_text())["results"]
         task_res = res.get(t["task"]) or next(iter(res.values()))
         metric_key = next((k for k in task_res if k.startswith(t["metric"]) and not k.endswith("stderr")), None)

@@ -16,7 +16,7 @@ hf download google/gemma-3-4b-pt --exclude "*.gguf" >/dev/null
 uv run pytest -q 2>&1 | tail -1
 # token sets (each on its own CPU-bound process, in parallel)
 for s in kl_500k kl_2m gsm8k_test lens_10m; do
-  [ -e /data/kl/$s.pt ] || (uv run python scripts/data_kl_subset.py --set $s > logs/data_$s.log 2>&1 &)
+  [ -e /data/kl/$s.pt ] || uv run python scripts/data_kl_subset.py --set $s > logs/data_$s.log 2>&1 &
 done
 wait
 # checkpoints and reference cache, one GPU each

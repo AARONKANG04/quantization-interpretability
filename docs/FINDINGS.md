@@ -17,6 +17,15 @@ Running record of results with their evidence files. Numbers here are copied fro
   (NVFP4) vs 2.64% (FP8 per-channel). results/phase0/pilot/q1.json, q3.json
 - Fully quantized model vs bf16 on the 500k-token held-out set: mean KL 0.081, median 0.037, top-1 disagreement
   12.3%. results/phase1/layer_sweep/all_x.json
+- Noise floor (C1, G0.3): fp32 vs bf16 on GSM8K strict is 40.56% vs 40.49% (+0.08 [-1.36, +1.52]; flips 3.4% /
+  3.5%). The NVFP4 net loss is about 90x this delta and well outside its CI, so G0.3 passes for GSM8K; note that
+  even numerically near-identical models flip about 7% of GSM8K items in both directions, so flip rates are read
+  against that baseline (NVFP4: 19.8%). MMLU floor runs on boxA. results/phase0/damage_table.json
+- ARC-Challenge and HellaSwag (0-shot, acc_norm) confirm GSM8K as the sensitive suite. NVFP4: ARC-C 54.52% ->
+  52.56% (-1.96 [-3.33, -0.60]; flips 3.8% / 1.8%), HellaSwag 75.79% -> 75.12% (-0.67 [-1.04, -0.32]; flips 2.0% /
+  1.3%). FP8 per-channel (Q3) is indistinguishable from bf16 on both: ARC-C +0.51 [-0.17, +1.28], HellaSwag +0.02
+  [-0.18, +0.21], 0.5% flips each way. Q3 on GSM8K and MMLU and the fp32 noise floor run on boxA.
+  results/phase0/damage_table.json, results/LEDGER.md
 
 ## 2026-10-05, Phase 1 KL-level (boxS)
 
@@ -73,3 +82,15 @@ Running record of results with their evidence files. Numbers here are copied fro
 - Label asymmetry: NVFP4 amplifies more features than it suppresses (6,330 vs 2,168, frequency ratio >2 or <0.5),
   noise mostly suppresses (2,745 vs 14,043). Only 7 of the top-641 energy features are suppressed, so steering
   and saliency now use the 641 least-surviving features (correlation at or below 0.37) as the primary set.
+
+## 2026-10-05, Phase 2 shift accounting, Q1 at layer 29 (boxS, Gemma Scope 2 65k, 12.25M tokens)
+
+- The SAE is a weaker ruler at layer 29: the feature-explained part is 84% of ||dh||^2 and the error term 59%
+  (cross term -43%), against 98% / 11% at layer 17, in line with the lower variance explained (0.80 vs 0.96).
+  Per-feature sums cover 44% of the explained energy (12% at layer 17), so less of the shift is correlated motion.
+- The shift at layer 29 is dominated by one direction: the top direction of the uncentred shift covariance holds 49%
+  of the shift energy, while the mean shift (a constant bias) holds only 2.9%. Per-feature energy is less concentrated
+  than at layer 17 (top 1% of features = 37% of the summed energy vs 63%; Gini 0.85 vs 0.94).
+- Far fewer features change frequency at layer 29: 787 suppressed and 466 amplified (vs 2,168 and 6,330 at layer 17),
+  347 newly dead, 304 newly alive. The C2 control and the survival comparison at layer 29 follow.
+  results/phase2/shift/q1_L29_summary.json

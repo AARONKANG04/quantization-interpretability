@@ -31,12 +31,16 @@ for mode in gain oracle; do
 done
 e steer_gain_full steer_gain "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set survival --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json"
 e steer_none_full steer_none "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --mode none --limit 1319 --out results/phase2/steer/q1_L${L}_none_full.json"
+# --- second ruler: the self-trained bf16 SAE at the same layer (needs sae_bf16) ---
+OWN=/data/saes/bf16_L${L}_w32768_k64.pt
+for c in q1 c2; do e shift_${c}_L${L}_own sae_bf16_L$L "$P scripts/phase2_shift.py --layer $L --ckpt-b /data/ckpt/$c --name ${c}_own --sae-file $OWN --tokens $SHIFT_TOK --batch 4"; done
+e survival_own_L$L "shift_q1_L${L}_own,shift_c2_L${L}_own" "$P scripts/phase2_compare_controls.py --layer $L --names q1_own c2_own --out results/phase2/survival_L${L}_own.json"
 # --- fp32 noise floor through the transformers backend ---
-e c1_fp32_gsm8k "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name c1_fp32 --tasks gsm8k_cot --backend hf --dtype float32 --hf-batch 16"
 e c1_fp32_mmlu  "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name c1_fp32_mmlu --tasks mmlu --limit 70 --backend hf --dtype float32 --hf-batch 16"
 # --- fast fillers: quantize-one-layer sweep, controls, extra SAE layers ---
 for r in 0-8 9-16 17-25 26-33; do e qone_$r "" "$P scripts/phase1_layer_sweep.py --mode quantize_one --layers $r --tokens $T --ref $R --batch 2 --out $SW"; done
 e ckpt_q3 "" "$P scripts/phase0_pilot.py --scheme fp8_e4m3 --out /data/ckpt/q3 --stats-out results/phase0/pilot/q3.json"
+e eval_q3 ckpt_q3 "$P scripts/phase0_eval.py --ckpt /data/ckpt/q3 --name q3 --tasks gsm8k_cot,mmlu --gpu-util 0.8"
 e ckpt_c3 "" "$P scripts/phase0_pilot.py --scheme error_permuted --out /data/ckpt/c3 --stats-out results/phase0/pilot/c3.json"
 e lens_apply_q3 "lens_train,ckpt_q3" "$P scripts/phase1_tuned_lens.py apply --lens /data/lens/gemma-3-4b-pt.pt --ckpt-b /data/ckpt/q3 --tokens $T --out results/phase1/lens_q3.json"
 e dump_c2_kl2m "" "$P scripts/phase1_token_dump.py --ckpt-b /data/ckpt/c2 --name c2 --tokens /data/kl/kl_2m.pt --batch 2"

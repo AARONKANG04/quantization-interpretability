@@ -39,13 +39,15 @@ def main():
     args = ap.parse_args()
     eval_dir = Path(args.eval_dir)
     summaries = {p.stem: json.loads(p.read_text()) for p in eval_dir.glob("*.json")}
+    is_ref = lambda n: n == args.ref or n.startswith(args.ref + "_")  # noqa: E731  (bf16, bf16_arc_hs, ...)
+    ref_for = {task: s for name, s in summaries.items() if is_ref(name) for task in s["results"]}
     table = {}
     for name, s in summaries.items():
         table[name] = {}
         for task, r in s["results"].items():
             entry = {"metric": r["metric"], "value": r["value"], "all": r.get("all_metrics", {})}
-            if name != args.ref and args.ref in summaries:
-                a, b = items(summaries[args.ref], task), items(s, task)
+            if not is_ref(name) and task in ref_for:
+                a, b = items(ref_for[task], task), items(s, task)
                 if a and b:
                     keys = sorted(set(a) & set(b))
                     ca = [a[k] for k in keys]; cb = [b[k] for k in keys]
@@ -59,9 +61,27 @@ def main():
         for task, e in tasks.items():
             p, fl = e.get("paired"), e.get("flips")
             lines.append(f"| {name} | {task} | {e['value']:.4f} | " + (f"{p['delta']:+.4f} | [{p['lo']:+.4f}, {p['hi']:+.4f}] | {fl['correct_to_incorrect']:.3f} / {fl['incorrect_to_correct']:.3f} |" if p else "| | |"))
-    with open(ROOT / "results/LEDGER.md", "a") as f:
-        f.write("\n".join(lines) + "\n")
+    floor = [n for n in table if n.startswith("c1_")]
+    if floor:
+        lines += ["", "### Noise floor (C1: bf16 vs fp32)", "", "| Task | bf16 | fp32 | delta | paired 95% CI |", "| --- | --- | --- | --- | --- |"]
+        for n in sorted(floor):
+            for task, e in table[n].items():
+                p = e.get("paired")
+                if p:
+                    lines.append(f"| {task} | {ref_for[task]['results'][task]['value']:.4f} | {e['value']:.4f} | {p['delta']:+.4f} | [{p['lo']:+.4f}, {p['hi']:+.4f}] |")
+    write_ledger_block("## Damage table", lines)
     print("\n".join(lines))
+
+
+def write_ledger_block(header, lines):
+    """Replace the ledger section that starts with `header` (up to the next level-2 heading), or append it."""
+    path = ROOT / "results/LEDGER.md"
+    text = path.read_text() if path.exists() else ""
+    start = text.find(header)
+    if start >= 0:
+        nxt = text.find("\n## ", start + len(header))
+        text = text[:start].rstrip("\n") + "\n" + ("\n" + text[nxt + 1:] if nxt >= 0 else "")
+    path.write_text(text.rstrip("\n") + "\n" + "\n".join(lines) + "\n")
 
 
 if __name__ == "__main__":

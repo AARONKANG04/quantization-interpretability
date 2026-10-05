@@ -1,0 +1,71 @@
+{
+  "layer": 17,
+  "min_count": 200,
+  "conditions": {
+    "q1": {
+      "n_eligible": 27106,
+      "n_corr_below": {
+        "0.5": 3446,
+        "0.8": 10216,
+        "0.95": 21793
+      },
+      "frac_corr_below": {
+        "0.5": 0.12713052332401276,
+        "0.8": 0.37689071893692017,
+        "0.95": 0.8039917349815369
+      },
+      "corr_quantiles_1_5_10_25_50": [
+        0.3253,
+        0.4156,
+        0.4736,
+        0.6249,
+        0.8607
+      ],
+      "low_survival_median_count": 558.0,
+      "all_median_count": 5174.0,
+      "low_survival_median_peak": 210.75973510742188,
+      "all_median_peak": 593.53173828125,
+      "labels": {
+        "suppressed": 2168,
+        "amplified": 6330,
+        "newly_dead": 352,
+        "newly_alive": 338,
+        "stable": 54919,
+        "inactive": 1429
+      }
+    },
+    "c2": {
+      "n_eligible": 27106,
+      "n_corr_below": {
+        "0.5": 6081,
+        "0.8": 12657,
+        "0.95": 23118
+      },
+      "frac_corr_below": {
+        "0.5": 0.2243414670228958,
+        "0.8": 0.4669445753097534,
+        "0.95": 0.8528739213943481
+      },
+      "corr_quantiles_1_5_10_25_50": [
+        0.1558,
+        0.2825,
+        0.3563,
+        0.5398,
+        0.8169
+      ],
+      "low_survival_median_count": 822.0,
+      "all_median_count": 5174.0,
+      "low_survival_median_peak": 244.73736572265625,
+      "all_median_peak": 593.53173828125,
+      "labels": {
+        "suppressed": 14043,
+        "amplified": 2745,
+        "newly_dead": 866,
+        "newly_alive": 309,
+        "stable": 46115,
+        "inactive": 1458
+      }
+    }
+  },
+  "jaccard_corr_below_0.5": 0.5610355562837949
+}

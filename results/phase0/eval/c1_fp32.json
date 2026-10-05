@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "git_sha": "7da4a90",
+    "args": {
+      "ckpt": "/data/ckpt/bf16",
+      "name": "c1_fp32",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "gsm8k_cot",
+      "dtype": "float32",
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw",
+      "gpu_util": 0.45,
+      "backend": "vllm",
+      "hf_batch": 8,
+      "reuse": true
+    },
+    "started": "2026-10-05T03:29:03",
+    "host": "aaron-dppo-rlvr"
+  },
+  "ckpt": "/data/ckpt/bf16",
+  "results": {
+    "gsm8k_cot": {
+      "metric": "exact_match,strict-match",
+      "value": 0.40561031084154664,
+      "all_metrics": {
+        "sample_len": 1319,
+        "exact_match,strict-match": 0.40561031084154664,
+        "exact_match_stderr,strict-match": 0.013524848894462111,
+        "exact_match,flexible-extract": 0.4200151630022744,
+        "exact_match_stderr,flexible-extract": 0.013595121688520482
+      },
+      "num_fewshot": 8,
+      "raw_dir": "/data/lm_eval_raw/c1_fp32/gsm8k_cot"
+    }
+  }
+}

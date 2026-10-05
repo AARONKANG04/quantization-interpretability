@@ -1,0 +1,462 @@
+{
+  "shift": "/data/shift/q1_L17.pt",
+  "layer": 17,
+  "rows": [
+    {
+      "feature": 1263,
+      "energy_share": 0.04442395269870758,
+      "cnt_a": 28758,
+      "cnt_b": 26528,
+      "freq_ratio": 0.9224563837051392,
+      "mean_act_a": 5848.041015625,
+      "mean_act_b": 5757.46484375,
+      "corr": 0.763550341129303,
+      "peak_a": 10215.3740234375,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1234,
+          "act": 10215.4,
+          "text": " beneath the city streets. In the first month, more than[[ ]]1.3"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1813,
+          "act": 10124.2,
+          "text": " be more or less affected. It\u2019s not the mother[[\u2019]]s depression per"
+        },
+        {
+          "src": "kl_2m.pt",
+          "pos": 1275,
+          "act": 10115.4,
+          "text": " not random shooting of animals. Hunting was banned in Tanzania from[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1275,
+          "act": 10115.4,
+          "text": " not random shooting of animals. Hunting was banned in Tanzania from[[ ]]197"
+        }
+      ]
+    },
+    {
+      "feature": 344,
+      "energy_share": 0.042903486639261246,
+      "cnt_a": 367391,
+      "cnt_b": 334642,
+      "freq_ratio": 0.9108606576919556,
+      "mean_act_a": 1236.5692138671875,
+      "mean_act_b": 1268.45703125,
+      "corr": 0.9288208484649658,
+      "peak_a": 12989.5859375,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 12989.6,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 12873.1,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 12850.5,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1152,
+          "act": 12793.9,
+          "text": " an introduction to accessing and using these resources.\\nPublished April[[ ]]2, "
+        }
+      ]
+    },
+    {
+      "feature": 301,
+      "energy_share": 0.03853103145956993,
+      "cnt_a": 252986,
+      "cnt_b": 230738,
+      "freq_ratio": 0.9120583534240723,
+      "mean_act_a": 1976.22216796875,
+      "mean_act_b": 1964.242431640625,
+      "corr": 0.9342165589332581,
+      "peak_a": 12651.904296875,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 12651.9,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 12594.5,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 12574.9,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "kl_2m.pt",
+          "pos": 1450,
+          "act": 12570.1,
+          "text": " levels,\" Garland said.\\nStudy results appear online Sept.[[ ]]1 in the"
+        }
+      ]
+    },
+    {
+      "feature": 202,
+      "energy_share": 0.033351633697748184,
+      "cnt_a": 188429,
+      "cnt_b": 165415,
+      "freq_ratio": 0.8778638243675232,
+      "mean_act_a": 1878.6375732421875,
+      "mean_act_b": 1981.14892578125,
+      "corr": 0.9277445673942566,
+      "peak_a": 11427.048828125,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 11427.0,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 11281.8,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 11276.9,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1152,
+          "act": 11216.7,
+          "text": " an introduction to accessing and using these resources.\\nPublished April[[ ]]2, "
+        }
+      ]
+    },
+    {
+      "feature": 391,
+      "energy_share": 0.02827758528292179,
+      "cnt_a": 2934331,
+      "cnt_b": 3019023,
+      "freq_ratio": 1.028862476348877,
+      "mean_act_a": 547.4386596679688,
+      "mean_act_b": 544.98095703125,
+      "corr": 0.9406086802482605,
+      "peak_a": 10475.1455078125,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 10475.1,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 10359.8,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 10347.5,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "kl_2m.pt",
+          "pos": 1450,
+          "act": 10292.2,
+          "text": " levels,\" Garland said.\\nStudy results appear online Sept.[[ ]]1 in the"
+        }
+      ]
+    },
+    {
+      "feature": 390,
+      "energy_share": 0.026914425194263458,
+      "cnt_a": 156388,
+      "cnt_b": 143887,
+      "freq_ratio": 0.9200642108917236,
+      "mean_act_a": 2080.546875,
+      "mean_act_b": 2091.819091796875,
+      "corr": 0.9294068813323975,
+      "peak_a": 10449.5771484375,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 10449.6,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 10340.4,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 10321.4,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1152,
+          "act": 10270.3,
+          "text": " an introduction to accessing and using these resources.\\nPublished April[[ ]]2, "
+        }
+      ]
+    },
+    {
+      "feature": 1633,
+      "energy_share": 0.017978768795728683,
+      "cnt_a": 250692,
+      "cnt_b": 245972,
+      "freq_ratio": 0.9811721444129944,
+      "mean_act_a": 1088.2210693359375,
+      "mean_act_b": 1049.0269775390625,
+      "corr": 0.9285911917686462,
+      "peak_a": 8467.1552734375,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 8467.2,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 8371.7,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 8367.8,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1854,
+          "act": 8323.7,
+          "text": " and better working conditions.\\nRespect for Human Rights\\nSection[[ ]]1 Respect for"
+        }
+      ]
+    },
+    {
+      "feature": 1058,
+      "energy_share": 0.011298522353172302,
+      "cnt_a": 187894,
+      "cnt_b": 174173,
+      "freq_ratio": 0.9269747734069824,
+      "mean_act_a": 1166.58154296875,
+      "mean_act_b": 1178.10205078125,
+      "corr": 0.9304764270782471,
+      "peak_a": 6895.8515625,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 6895.9,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 6806.4,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 6797.2,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1152,
+          "act": 6770.8,
+          "text": " an introduction to accessing and using these resources.\\nPublished April[[ ]]2, "
+        }
+      ]
+    },
+    {
+      "feature": 513,
+      "energy_share": 0.01079182606190443,
+      "cnt_a": 108841,
+      "cnt_b": 99571,
+      "freq_ratio": 0.9148299098014832,
+      "mean_act_a": 1722.0867919921875,
+      "mean_act_b": 1756.6776123046875,
+      "corr": 0.928918182849884,
+      "peak_a": 6636.279296875,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 6636.3,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 6542.8,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 6541.6,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1152,
+          "act": 6520.6,
+          "text": " an introduction to accessing and using these resources.\\nPublished April[[ ]]2, "
+        }
+      ]
+    },
+    {
+      "feature": 818,
+      "energy_share": 0.01066039688885212,
+      "cnt_a": 161824,
+      "cnt_b": 154553,
+      "freq_ratio": 0.9550684690475464,
+      "mean_act_a": 1429.018310546875,
+      "mean_act_b": 1404.563232421875,
+      "corr": 0.9345450401306152,
+      "peak_a": 6807.14453125,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 6807.1,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 6706.4,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 6686.5,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1854,
+          "act": 6660.1,
+          "text": " and better working conditions.\\nRespect for Human Rights\\nSection[[ ]]1 Respect for"
+        }
+      ]
+    },
+    {
+      "feature": 964,
+      "energy_share": 0.01052949484437704,
+      "cnt_a": 64197,
+      "cnt_b": 62959,
+      "freq_ratio": 0.9807156324386597,
+      "mean_act_a": 2801.732666015625,
+      "mean_act_b": 2688.8154296875,
+      "corr": 0.9303374886512756,
+      "peak_a": 6780.9560546875,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 6781.0,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 6665.5,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 6663.7,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1854,
+          "act": 6646.9,
+          "text": " and better working conditions.\\nRespect for Human Rights\\nSection[[ ]]1 Respect for"
+        }
+      ]
+    },
+    {
+      "feature": 1809,
+      "energy_share": 0.005814538802951574,
+      "cnt_a": 265203,
+      "cnt_b": 267527,
+      "freq_ratio": 1.008763074874878,
+      "mean_act_a": 774.8389892578125,
+      "mean_act_b": 739.480224609375,
+      "corr": 0.9345693588256836,
+      "peak_a": 5024.18505859375,
+      "label": "stable",
+      "examples": [
+        {
+          "src": "lens_10m.pt",
+          "pos": 1907,
+          "act": 5024.2,
+          "text": " frequently called \u201cthe forgotten war.\u201d\\nThis year marks the[[ ]]100"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1854,
+          "act": 4942.5,
+          "text": " and better working conditions.\\nRespect for Human Rights\\nSection[[ ]]1 Respect for"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1836,
+          "act": 4942.4,
+          "text": " Liberal or Conservative \u2014 is past practice.\\nToday, let[[\u2019]]s review the"
+        },
+        {
+          "src": "lens_10m.pt",
+          "pos": 1503,
+          "act": 4939.6,
+          "text": " of Mauritius Kestrel declined to about nine individuals in the early[[ ]]197"
+        }
+      ]
+    }
+  ]
+}

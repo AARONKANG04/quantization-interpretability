@@ -33,7 +33,7 @@ case "$cmd" in
         mkdir "$Q/started/$name" 2>/dev/null || continue
         claimed="$name"
         echo "[$(date +%H:%M:%S)] gpu$gpu start $name" | tee -a "$Q/logs/_workers.log"
-        if CUDA_VISIBLE_DEVICES=$gpu bash -c "$command" > "$Q/logs/$name.log" 2>&1; then touch "$Q/done/$name"; st=done; else touch "$Q/failed/$name"; st=FAILED; fi
+        if CUDA_VISIBLE_DEVICES=$gpu bash -c "$command" < /dev/null > "$Q/logs/$name.log" 2>&1; then touch "$Q/done/$name"; st=done; else touch "$Q/failed/$name"; st=FAILED; fi
         echo "[$(date +%H:%M:%S)] gpu$gpu $st $name" | tee -a "$Q/logs/_workers.log"
         break
       done < "$Q/jobs.txt"
