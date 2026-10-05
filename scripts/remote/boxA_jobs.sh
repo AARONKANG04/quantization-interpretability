@@ -54,3 +54,6 @@ done; done
 for r in 0-3 4-7 8-11 12-15 16-19 20-23 24-28 29-33; do e qmat_$r "" "$P scripts/phase1_layer_sweep.py --mode quantize_one_matrix --layers $r --tokens $T --ref $R --batch 2 --out $SW"; done
 e sae_bf16_L29 "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/bf16 --name bf16 --layer 29 --tokens 100000000 --resume"
 e sae_q1_L29   "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/q1   --name q1   --layer 29 --tokens 100000000 --resume"
+# --- replicate the Phase 0 GSM8K headline on this box (also regenerates the raw generations for the report) ---
+e eval_bf16_rep "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name bf16_rep --tasks gsm8k_cot --gpu-util 0.8"
+e eval_q1_rep   "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/q1   --name q1_rep   --tasks gsm8k_cot --gpu-util 0.8"
