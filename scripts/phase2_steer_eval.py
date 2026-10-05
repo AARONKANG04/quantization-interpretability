@@ -58,11 +58,14 @@ def main():
         sae = JumpReLUSAE.load(args.sae_file, device="cuda") if args.sae_file else load_gemma_scope2(args.layer, args.width, args.l0, device="cuda")
     feats_info = json.loads(Path(args.feats).read_text()) if args.feats else {}
     ids = feats_info.get("control" if args.mode.endswith("_random") else args.set, [])
+    gain_src = feats_info.get(args.set, []) if args.mode.endswith("_random") else ids  # the control reuses the set's gains
+    ids = ids[: len(gain_src)] if args.mode.endswith("_random") else ids
     feats = torch.tensor(ids, device="cuda", dtype=torch.long)
-    gains = torch.tensor([feats_info.get("gains_top", {}).get(str(i), 1.0) for i in ids], device="cuda")
+    gains = torch.tensor([feats_info.get("gains_top", {}).get(str(i), 1.0) for i in gain_src], device="cuda")
     if args.mode.endswith("_random") and args.mode.startswith("gain"):
         # random control gets the same gain multiset, shuffled
         gains = gains[torch.randperm(len(gains), device="cuda")] if len(gains) else gains
+    print(f"{args.mode}: {len(ids)} features, gains median {gains.median().item() if len(gains) else 1.0:.3f}", flush=True)
 
     target = model_b
     if args.mode == "bf16_gain":
