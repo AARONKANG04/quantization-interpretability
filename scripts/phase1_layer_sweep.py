@@ -62,7 +62,7 @@ def sweep_kl(model, input_ids, batch, ref):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--mode", choices=["restore_one", "quantize_one", "all", "none"], default="restore_one")
+    ap.add_argument("--mode", choices=["restore_one", "quantize_one", "quantize_one_matrix", "all", "none"], default="restore_one")
     ap.add_argument("--layers", default="0-33")
     ap.add_argument("--tokens", required=True)
     ap.add_argument("--ref", required=True)
@@ -88,22 +88,31 @@ def main():
         for name, mod in iter_quantizable(model):
             mod.weight.data.copy_(originals[name])
 
-    configs = {"all": [None], "none": [None]}.get(args.mode, _ints(args.layers))
-    for li in configs:
+    suffixes = ("q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj")
+    if args.mode == "quantize_one_matrix":
+        configs = [(li, sfx) for li in _ints(args.layers) for sfx in suffixes]
+    else:
+        configs = [(li, None) for li in {"all": [None], "none": [None]}.get(args.mode, _ints(args.layers))]
+    for li, sfx in configs:
+        tag = f"{args.mode}_{li if li is not None else 'x'}" + (f"_{sfx}" if sfx else "")
+        if (Path(args.out) / f"{tag}.json").exists():
+            print("skip existing", tag); continue
         t0 = time.time()
         restore_all()
         if args.mode == "restore_one":
             stats = apply_scheme(model, args.scheme, exclude_layers=[li])
         elif args.mode == "quantize_one":
             stats = apply_scheme(model, args.scheme, layers=[li])
+        elif args.mode == "quantize_one_matrix":
+            stats = apply_scheme(model, args.scheme, layers=[li], matrices=[sfx])
         elif args.mode == "all":
             stats = apply_scheme(model, args.scheme)
         else:
             stats = {}
         metrics, kl = sweep_kl(model, input_ids, args.batch, ref)
-        tag = f"{args.mode}_{li if li is not None else 'x'}"
-        payload = {**run_meta(args), "mode": args.mode, "layer": li, "scheme": args.scheme, **metrics,
-                   "n_matrices_quantized": len(stats), "seconds": time.time() - t0}
+        payload = {**run_meta(args), "mode": args.mode, "layer": li, "matrix": sfx, "scheme": args.scheme, **metrics,
+                   "n_matrices_quantized": len(stats), "seconds": time.time() - t0,
+                   "matrix_stats": next(iter(stats.values()), None) if sfx else None}
         write_json(Path(args.out) / f"{tag}.json", payload)
         if args.save_token_kl:
             torch.save(kl, Path(args.out) / f"{tag}_token_kl.pt")

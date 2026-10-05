@@ -26,6 +26,7 @@ def main():
     ap.add_argument("--model", default="google/gemma-3-4b-pt")
     ap.add_argument("--out", default="results/phase1/ranked_order.json")
     ap.add_argument("--dry", action="store_true", help="only write the ordering, build no checkpoints")
+    ap.add_argument("--skip-ranked", action="store_true", help="build only the random orderings")
     args = ap.parse_args()
 
     base = json.loads(Path(args.sweep, "all_x.json").read_text())["mean_kl"]
@@ -37,7 +38,7 @@ def main():
     ranked = [r["layer"] for r in rows]
     n_layers = len(ranked)
     ns = [int(x) for x in args.ns.split(",")]
-    orders = {"ranked": ranked}
+    orders = {} if args.skip_ranked else {"ranked": ranked}
     for seed in [int(s) for s in args.random_seeds.split(",")]:
         rnd = list(range(n_layers)); random.Random(seed).shuffle(rnd)
         orders[f"random_s{seed}"] = rnd
@@ -45,7 +46,7 @@ def main():
     for name, order in orders.items():
         for n in ns:
             plan.append({"order": name, "n": n, "restored": order[:n], "ckpt": str(Path(args.ckpt_dir) / f"{name}_top{n}")})
-    write_json(args.out, {**run_meta(args), "kl_all_quantized": base, "ranking": rows, "orders": orders, "plan": plan})
+    write_json(args.out, {**run_meta(args), "kl_all_quantized": base, "ranking": rows, "orders": {"ranked": ranked, **orders}, "plan": plan})
     if args.dry:
         return
     import torch
@@ -55,6 +56,8 @@ def main():
     model, tok = load_gemma3_text(args.model, device_map="cuda" if torch.cuda.is_available() else "cpu")
     originals = {n: m.weight.data.to("cpu", copy=True) for n, m in iter_quantizable(model)}
     for p in plan:
+        if Path(p["ckpt"], "config.json").exists():
+            print("exists", p["ckpt"]); continue
         for n, m in iter_quantizable(model):
             m.weight.data.copy_(originals[n])
         stats = apply_scheme(model, args.scheme, exclude_layers=p["restored"])
