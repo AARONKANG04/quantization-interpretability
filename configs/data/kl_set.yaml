@@ -1,0 +1,9 @@
+# Held-out token sets for KL / per-token analysis. Built by scripts/data_kl_subset.py into /data/kl/*.pt
+seq_len: 2048
+sets:
+  kl_2m:   {tokens: 2000000, sources: {fineweb_edu: 0.7, wikitext2: 0.1, gsm8k_train: 0.1, code_python: 0.1}}
+  kl_500k: {tokens: 500000,  sources: {fineweb_edu: 0.7, wikitext2: 0.1, gsm8k_train: 0.1, code_python: 0.1}}
+  pg19_long: {tokens: 2000000, seq_len: 32768, sources: {pg19: 1.0}}
+  lens_10m:  {tokens: 10000000, sources: {fineweb_edu: 1.0}}
+  gsm8k_test: {tokens: 400000, sources: {gsm8k_test: 1.0}}
+reference_topk: 256

@@ -1,0 +1,28 @@
+{
+  "git_sha": "unknown",
+  "args": {
+    "mode": "restore_one",
+    "layers": "0-33",
+    "tokens": "/data/kl/kl_500k.pt",
+    "ref": "/data/kl/ref_kl_500k_top256.pt",
+    "out": "results/phase1/layer_sweep",
+    "scheme": "nvfp4_rtn",
+    "model": "google/gemma-3-4b-pt",
+    "batch": 2,
+    "topk": 256,
+    "build_ref": false,
+    "save_token_kl": false
+  },
+  "started": "2026-10-05T01:40:04",
+  "host": "aaron-dppo-rlvr",
+  "mode": "restore_one",
+  "layer": 11,
+  "scheme": "nvfp4_rtn",
+  "mean_kl": 0.07588694244623184,
+  "median_kl": 0.034486062824726105,
+  "p90_kl": 0.16514524817466736,
+  "top1_agree": 0.8807713985443115,
+  "n_tokens": 503562,
+  "n_matrices_quantized": 231,
+  "seconds": 40.78014087677002
+}

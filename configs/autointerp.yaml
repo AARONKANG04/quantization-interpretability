@@ -1,0 +1,9 @@
+# Auto-interp (plan E2.3) through the Backboard API; key in .env as BACKBOARD_API_KEY.
+provider: anthropic
+explain_model: claude-sonnet-5-5            # one-sentence explanation from top activating examples
+categorize_model: claude-haiku-4-5-20251001  # fixed-taxonomy label from the explanation
+max_examples: 20
+window_tokens: 24
+top_fraction: 0.01          # top 1% of features by shift energy (655 at 65k width)
+control_size: 655           # random features for the enrichment control
+hand_check: 100             # labels checked by hand to measure classifier agreement

@@ -1,0 +1,2 @@
+scheme: noise_matched   # C2: Gaussian perturbation with the same per-matrix Frobenius error as Q1
+seed: 0

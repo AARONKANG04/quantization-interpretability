@@ -1,0 +1,17 @@
+.env
+/data/
+logs/
+wandb/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+*.safetensors
+*.pt
+*.npy
+notebooks/*.ipynb_checkpoints
+results/**/samples_*.jsonl
+results/**/token_dump/*.parquet
+results/figures/*.png

@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "git_sha": "unknown",
+    "args": {
+      "ckpt": "/data/ckpt/q1",
+      "name": "q1",
+      "suite": "/home/aaron/quantization-interpretability/configs/eval/suites.yaml",
+      "tasks": "gsm8k_cot,mmlu",
+      "dtype": null,
+      "limit": null,
+      "out": "/home/aaron/quantization-interpretability/results/phase0/eval",
+      "raw_dir": "/data/lm_eval_raw"
+    },
+    "started": "2026-10-05T01:11:57",
+    "host": "aaron-dppo-rlvr"
+  },
+  "ckpt": "/data/ckpt/q1",
+  "results": {
+    "gsm8k_cot": {
+      "metric": "exact_match,strict-match",
+      "value": 0.33434420015163,
+      "all_metrics": {
+        "sample_len": 1319,
+        "exact_match,strict-match": 0.33434420015163,
+        "exact_match_stderr,strict-match": 0.01299463400333276,
+        "exact_match,flexible-extract": 0.3464746019711903,
+        "exact_match_stderr,flexible-extract": 0.013107179054313406
+      },
+      "num_fewshot": 8,
+      "raw_dir": "/data/lm_eval_raw/q1/gsm8k_cot"
+    },
+    "mmlu": {
+      "metric": "acc,none",
+      "value": 0.5833214641788919,
+      "all_metrics": {
+        "sample_len": 14042,
+        "acc,none": 0.5833214641788919,
+        "acc_stderr,none": 0.00391610844503027
+      },
+      "num_fewshot": 5,
+      "raw_dir": "/data/lm_eval_raw/q1/mmlu"
+    }
+  }
+}

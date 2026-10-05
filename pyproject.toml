@@ -1,0 +1,46 @@
+[project]
+name = "qi"
+version = "0.1.0"
+description = "Mechanistic analysis of NVFP4/FP8 quantization damage in Gemma 3 4B"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+  "torch>=2.4",
+  "transformers>=4.53",
+  "datasets>=2.19",
+  "accelerate>=0.33",
+  "safetensors>=0.4",
+  "numpy>=1.26",
+  "pandas>=2.2",
+  "pyarrow>=16",
+  "pyyaml>=6",
+  "tqdm>=4.66",
+  "huggingface-hub>=0.24",
+  "python-dotenv>=1.0",
+  "requests>=2.31",
+  "scipy>=1.11",
+  "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+box = [
+  "vllm>=0.10",
+  "llmcompressor>=0.8",
+  "compressed-tensors>=0.10",
+  "sae-lens>=6",
+  "lm-eval>=0.4.8",
+  "wandb>=0.17",
+]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["qi*"]
+
+[tool.ruff]
+line-length = 110
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

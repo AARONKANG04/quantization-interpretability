@@ -1,0 +1,10 @@
+name: google/gemma-3-4b-pt
+it_name: google/gemma-3-4b-it
+dtype: bfloat16
+attn_implementation: sdpa
+quantizable_suffixes: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+keep_bf16: [embed_tokens, lm_head, norm]
+num_layers: 34
+hidden_size: 2560
+global_layers: [5, 11, 17, 23, 29]
+gemma_scope_layers: [9, 17, 22, 29]

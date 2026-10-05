@@ -1,0 +1,2 @@
+scheme: error_permuted  # C3: Q1 error entries permuted within each matrix (same histogram, destroyed placement)
+seed: 0

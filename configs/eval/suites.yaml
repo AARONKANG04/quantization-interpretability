@@ -1,0 +1,7 @@
+# lm-eval-harness tasks. headline suites use the full sets; sweep suites use the subsets in configs/eval/sweep.yaml
+vllm_args: "dtype=bfloat16,gpu_memory_utilization=0.6,max_model_len=4096,enable_prefix_caching=True"
+tasks:
+  - {task: gsm8k_cot, num_fewshot: 8, metric: exact_match, headline: true}
+  - {task: mmlu, num_fewshot: 5, metric: acc, headline: true}
+  - {task: arc_challenge, num_fewshot: 0, metric: acc_norm, headline: false}
+  - {task: hellaswag, num_fewshot: 0, metric: acc_norm, headline: false}

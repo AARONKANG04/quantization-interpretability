@@ -1,0 +1,20 @@
+{
+  "git_sha": "unknown",
+  "args": {
+    "scheme": "none",
+    "out": "/data/ckpt/bf16",
+    "stats_out": "results/phase0/pilot/bf16.json",
+    "model": "google/gemma-3-4b-pt",
+    "layers": null,
+    "exclude_layers": null,
+    "matrices": null,
+    "seed": 0,
+    "no_save": false
+  },
+  "started": "2026-10-05T00:44:51",
+  "host": "aaron-dppo-rlvr",
+  "summary": {
+    "numel": 0
+  },
+  "per_matrix": {}
+}

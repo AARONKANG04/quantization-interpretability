@@ -1,0 +1,55 @@
+{
+  "git_sha": "unknown",
+  "args": {
+    "layer": 29,
+    "width": "65k",
+    "l0": "medium",
+    "variant": "4b-pt",
+    "model_a": "google/gemma-3-4b-pt",
+    "ckpt_b": "/data/ckpt/q1",
+    "tokens": "/data/kl/kl_500k.pt",
+    "n_seqs": 48,
+    "batch": 4,
+    "out": "results/phase2/sae_validation_L29.json"
+  },
+  "started": "2026-10-05T01:55:17",
+  "host": "aaron-dppo-rlvr",
+  "sae": {
+    "d_in": 2560,
+    "d_sae": 65536,
+    "apply_b_dec_to_input": false,
+    "threshold_mean": 667.2236328125,
+    "dec_norm_mean": 1.0
+  },
+  "a_bf16": {
+    "recon": {
+      "variance_explained": 0.7965750054232831,
+      "l0": 73.0501200358073,
+      "mse": 31679.954166666666,
+      "cosine": 0.9926678786675135,
+      "n_tokens": 98304
+    },
+    "resid_norm_mean": 75903.5625,
+    "splice": {
+      "ce_base": 2.483178210013892,
+      "ce_spliced": 2.589420052115138,
+      "ce_delta": 0.10624184210124588
+    }
+  },
+  "b": {
+    "recon": {
+      "variance_explained": 0.7862826301767597,
+      "l0": 71.80328369140625,
+      "mse": 32880.6453125,
+      "cosine": 0.9923378974199295,
+      "n_tokens": 98304
+    },
+    "resid_norm_mean": 75677.328125,
+    "splice": {
+      "ce_base": 2.5124921700869414,
+      "ce_spliced": 2.612993099658036,
+      "ce_delta": 0.10050092957109458
+    }
+  },
+  "recon_gap": -0.010292375246523378
+}

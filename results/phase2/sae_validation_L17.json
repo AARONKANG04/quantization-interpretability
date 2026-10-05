@@ -1,0 +1,55 @@
+{
+  "git_sha": "unknown",
+  "args": {
+    "layer": 17,
+    "width": "65k",
+    "l0": "medium",
+    "variant": "4b-pt",
+    "model_a": "google/gemma-3-4b-pt",
+    "ckpt_b": "/data/ckpt/q1",
+    "tokens": "/data/kl/kl_500k.pt",
+    "n_seqs": 48,
+    "batch": 4,
+    "out": "results/phase2/sae_validation_L17.json"
+  },
+  "started": "2026-10-05T01:54:47",
+  "host": "aaron-dppo-rlvr",
+  "sae": {
+    "d_in": 2560,
+    "d_sae": 65536,
+    "apply_b_dec_to_input": false,
+    "threshold_mean": 141.47439575195312,
+    "dec_norm_mean": 1.0
+  },
+  "a_bf16": {
+    "recon": {
+      "variance_explained": 0.9577281641789391,
+      "l0": 66.52125040690105,
+      "mse": 1143.475703938802,
+      "cosine": 0.9986089008549849,
+      "n_tokens": 98304
+    },
+    "resid_norm_mean": 32232.763671875,
+    "splice": {
+      "ce_base": 2.483178210013892,
+      "ce_spliced": 2.6139470013281634,
+      "ce_delta": 0.13076879131427122
+    }
+  },
+  "b": {
+    "recon": {
+      "variance_explained": 0.9540204399703006,
+      "l0": 65.26999918619792,
+      "mse": 1197.6433939615886,
+      "cosine": 0.9985534797112147,
+      "n_tokens": 98304
+    },
+    "resid_norm_mean": 32261.01953125,
+    "splice": {
+      "ce_base": 2.5124921700869414,
+      "ce_spliced": 2.6364735806925914,
+      "ce_delta": 0.12398141060565004
+    }
+  },
+  "recon_gap": -0.0037077242086385187
+}
