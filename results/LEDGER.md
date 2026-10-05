@@ -160,26 +160,6 @@ Decision rule (feature-guided (FG-proj) vs baseline, paired, needs a win at two 
 - vs magnitude: **ties** (1%: +0.3 [-0.4, +1.0]; 2%: -0.2 [-1.0, +0.6]; 5%: -0.4 [-1.2, +0.4])
 - vs random channels: **ties** (1%: +0.0 [-0.6, +0.6]; 2%: +0.2 [-0.5, +0.9]; 5%: -0.1 [-0.8, +0.7])
 
-## Phase 2: steering at layer 17 (GSM8K subset, 500 items, paired bootstrap vs no steering, 2026-10-05T05:25:39)
-
-No steering (NVFP4, HF engine): 34.6. Same items, vLLM engine: bf16 41.6, NVFP4 35.6.
-
-| Arm | Feature set | Features | Acc | Delta vs none [95% CI] | Share of bf16 gap |
-| --- | --- | --- | --- | --- | --- |
-| gain | survival | 641 | 35.4 | +0.8 [-1.2, +2.8] | 11% |
-| gain_random | survival | 641 | 34.6 | +0.0 [-2.0, +2.0] | 0% |
-| gain | top | 641 | 37.0 | +2.4 [+0.0, +5.0] | 34% |
-| mean_shift | survival | 641 | 37.2 | +2.6 [+0.2, +5.2] * | 37% |
-| oracle | survival | 641 | 34.0 | -0.6 [-2.4, +1.2] | -9% |
-| oracle_random | survival | 641 | 36.2 | +1.6 [-0.6, +3.8] | 23% |
-| oracle | top | 641 | 35.6 | +1.0 [-1.8, +3.8] | 14% |
-| oracle | survival_5pct | 3205 | 35.2 | +0.6 [-1.2, +2.6] | 9% |
-| oracle | all | 65536 | 39.0 | +4.4 [+0.8, +8.0] * | 63% |
-| full_residual | survival | 641 | 42.0 | +7.4 [+3.6, +11.2] * | 106% |
-| bf16_gain | survival | 641 | 42.4 | +7.8 [+3.8, +11.8] * | 111% |
-
-Engine check on the full set: HF backend 33.66 vs vLLM 33.81, delta -0.2 [-1.3, +1.0].
-
 ## Phase 1: layer restore curve (ref bf16_rep, quant q1_rep, paired bootstrap, 2026-10-05T01:29:00)
 
 **gsm8k_cot**: bf16_rep 40.41, q1_rep 33.81, loss 6.60 [+4.2, +8.9] on 1319 items. 50% recovery at N = None, 80% at N = None.
@@ -201,4 +181,29 @@ Engine check on the full set: HF backend 33.66 vs vLLM 33.81, delta -0.2 [-1.3, 
 | 3 | 60.13 | +0.5 [-0.3, +1.3] | 38% | 59.42 | +0.7 (n.s.) |
 | 5 | 59.92 | +0.3 [-0.5, +1.1] | 23% | 59.50 | +0.4 (n.s.) |
 | 8 | 59.82 | +0.2 [-0.7, +1.1] | 15% | 60.03 | -0.2 (n.s.) |
+
+## Phase 2: steering at layer 17 (GSM8K subset, 500 items, paired bootstrap vs no steering, 2026-10-05T01:55:01)
+
+No steering (NVFP4, HF engine): 34.6. Same items, vLLM engine: bf16 41.6, NVFP4 35.6.
+
+| Arm | Feature set | Features | Acc | Delta vs none [95% CI] | Share of bf16 gap |
+| --- | --- | --- | --- | --- | --- |
+| gain | survival | 641 | 35.4 | +0.8 [-1.2, +2.8] | 11% |
+| gain_random | survival | 641 | 34.6 | +0.0 [-2.0, +2.0] | 0% |
+| gain | top | 641 | 37.0 | +2.4 [+0.0, +5.0] | 34% |
+| mean_shift | survival | 641 | 37.2 | +2.6 [+0.2, +5.2] * | 37% |
+| oracle | survival | 641 | 34.0 | -0.6 [-2.4, +1.2] | -9% |
+| oracle_random | survival | 641 | 36.2 | +1.6 [-0.6, +3.8] | 23% |
+| oracle | top | 641 | 35.6 | +1.0 [-1.8, +3.8] | 14% |
+| oracle | survival_5pct | 3205 | 35.2 | +0.6 [-1.2, +2.6] | 9% |
+| oracle | control_5pct | 3205 | 35.6 | +1.0 [-1.0, +3.2] | 14% |
+| oracle | top_5pct | 3205 | 35.8 | +1.2 [-1.8, +4.2] | 17% |
+| oracle | survival_10pct | 6411 | 35.4 | +0.8 [-1.0, +2.6] | 11% |
+| oracle | control_10pct | 6411 | 35.0 | +0.4 [-2.2, +3.2] | 6% |
+| oracle | top_10pct | 6411 | 39.2 | +4.6 [+1.2, +8.0] * | 66% |
+| oracle | all | 65536 | 39.0 | +4.4 [+0.8, +8.0] * | 63% |
+| full_residual | survival | 641 | 42.0 | +7.4 [+3.6, +11.2] * | 106% |
+| bf16_gain | survival | 641 | 42.4 | +7.8 [+3.8, +11.8] * | 111% |
+
+Engine check on the full set: HF backend 33.66 vs vLLM 33.81, delta -0.2 [-1.3, +1.0].
 

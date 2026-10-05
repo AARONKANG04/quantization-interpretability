@@ -1,15 +1,15 @@
 {
-  "git_sha": "b1e02a4",
+  "git_sha": "c510e64",
   "args": {
     "layer": 17,
-    "steer_dir": "/home/aaron/quantization-interpretability/results/phase2/steer",
+    "steer_dir": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase2/steer",
     "ref": "bf16_rep",
     "quant": "q1_rep",
-    "raw_root": null,
-    "out": "/home/aaron/quantization-interpretability/results/phase2/steering.json"
+    "raw_root": "/Users/aaron/qi_archive/boxA/lm_eval_raw",
+    "out": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase2/steering.json"
   },
-  "started": "2026-10-05T05:25:39",
-  "host": "aaron-rlvr-gigpo",
+  "started": "2026-10-05T01:55:01",
+  "host": "Aarons-MacBook-Pro-2.local",
   "layer": 17,
   "baseline_acc": 0.346,
   "n_items": 500,
@@ -126,6 +126,34 @@
       "n": 500,
       "recovery_frac_of_subset_gap": 0.6285714285714284
     },
+    "oracle_control_10pct": {
+      "mode": "oracle",
+      "set": "control_10pct",
+      "n_feats": 6411,
+      "acc": 0.35,
+      "delta_vs_none": 0.004,
+      "ci": [
+        -0.022,
+        0.032
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.05714285714285714
+    },
+    "oracle_control_5pct": {
+      "mode": "oracle",
+      "set": "control_5pct",
+      "n_feats": 3205,
+      "acc": 0.356,
+      "delta_vs_none": 0.01,
+      "ci": [
+        -0.01,
+        0.032
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.14285714285714285
+    },
     "oracle_random": {
       "mode": "oracle_random",
       "set": "survival",
@@ -139,6 +167,20 @@
       "significant": false,
       "n": 500,
       "recovery_frac_of_subset_gap": 0.22857142857142856
+    },
+    "oracle_survival_10pct": {
+      "mode": "oracle",
+      "set": "survival_10pct",
+      "n_feats": 6411,
+      "acc": 0.354,
+      "delta_vs_none": 0.008,
+      "ci": [
+        -0.01,
+        0.026
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.11428571428571428
     },
     "oracle_survival_5pct": {
       "mode": "oracle",
@@ -167,6 +209,34 @@
       "significant": false,
       "n": 500,
       "recovery_frac_of_subset_gap": 0.14285714285714285
+    },
+    "oracle_top_10pct": {
+      "mode": "oracle",
+      "set": "top_10pct",
+      "n_feats": 6411,
+      "acc": 0.392,
+      "delta_vs_none": 0.046,
+      "ci": [
+        0.012,
+        0.08
+      ],
+      "significant": true,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.657142857142857
+    },
+    "oracle_top_5pct": {
+      "mode": "oracle",
+      "set": "top_5pct",
+      "n_feats": 3205,
+      "acc": 0.358,
+      "delta_vs_none": 0.012,
+      "ci": [
+        -0.018,
+        0.042
+      ],
+      "significant": false,
+      "n": 500,
+      "recovery_frac_of_subset_gap": 0.1714285714285714
     }
   },
   "ref_acc_same_items": 0.416,

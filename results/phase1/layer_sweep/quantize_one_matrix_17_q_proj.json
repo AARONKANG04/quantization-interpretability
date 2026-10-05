@@ -1,0 +1,43 @@
+{
+  "git_sha": "e3c870d",
+  "args": {
+    "mode": "quantize_one_matrix",
+    "layers": "16-19",
+    "tokens": "/data/kl/kl_500k.pt",
+    "ref": "/data/kl/ref_kl_500k_top256.pt",
+    "out": "results/phase1/layer_sweep",
+    "scheme": "nvfp4_rtn",
+    "model": "google/gemma-3-4b-pt",
+    "batch": 2,
+    "topk": 256,
+    "build_ref": false,
+    "save_token_kl": false
+  },
+  "started": "2026-10-05T05:44:38",
+  "host": "aaron-rlvr-gigpo",
+  "mode": "quantize_one_matrix",
+  "layer": 17,
+  "matrix": "q_proj",
+  "scheme": "nvfp4_rtn",
+  "mean_kl": 0.0011619910364970565,
+  "median_kl": 0.0008270642720162868,
+  "p90_kl": 0.0023747619707137346,
+  "top1_agree": 0.9830944538116455,
+  "n_tokens": 503562,
+  "n_matrices_quantized": 1,
+  "seconds": 16.693639278411865,
+  "matrix_stats": {
+    "layer": 17,
+    "shape": [
+      2048,
+      2560
+    ],
+    "scheme": "nvfp4_rtn",
+    "numel": 5242880,
+    "rel_fro_err": 0.09464576095342636,
+    "frac_zeroed": 0.07377414405345917,
+    "frac_shadowed": 0.07376746833324432,
+    "clip_err_share": 0.013038184493780136,
+    "global_scale": 7776.0
+  }
+}

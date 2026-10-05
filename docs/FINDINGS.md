@@ -152,11 +152,16 @@ Running record of results with their evidence files. Numbers here are copied fro
   (gains are all within a few percent of 1.0, so this was expected to be null), random-feature gain +0.0; the ORACLE
   patch that sets the same 641 features to their bf16 values gives -0.6 [-2.4, +1.2], the 641 highest-energy features
   +1.0 [-1.8, +3.8], 641 random features +1.6 [-0.6, +3.8], and the 3,205 (5%) least-surviving features +0.6 [-1.2, +2.6].
-- The damage is nevertheless largely in the SAE basis: patching ALL 65,536 features (the whole SAE-explained shift,
-  leaving the SAE error term) recovers +4.4 [+0.8, +8.0] pts, 63% of the bf16 gap on these items, and replacing the
-  entire layer-17 residual stream recovers +7.4 [+3.6, +11.2] (106%, i.e. bf16 accuracy) even though layers 18 to 33
-  stay quantized. So the loss is fully formed by layer 17 and is spread over thousands of features and the SAE error,
-  not concentrated in the features that quantization visibly damages.
+- The damage is nevertheless largely in the SAE basis, and it sits in the dense high-energy features, not in the
+  fragile ones: patching ALL 65,536 features (the whole SAE-explained shift, leaving the SAE error term) recovers
+  +4.4 [+0.8, +8.0] pts, 63% of the bf16 gap on these items, and patching only the 6,411 highest-energy features (10%)
+  recovers the same, +4.6 [+1.2, +8.0] (66%). The 10% least-surviving features recover +0.8 [-1.0, +2.6], 10% random
+  features +0.4 [-2.2, +3.2], and the 5% highest-energy features +1.2 [-1.8, +4.2], so the accuracy-relevant part of
+  the shift needs most of the top-10% energy set. Replacing the entire layer-17 residual stream recovers +7.4
+  [+3.6, +11.2] (106%, i.e. bf16 accuracy) even though layers 18 to 33 stay quantized: the loss is fully formed by
+  layer 17, two thirds of it inside the SAE basis (in the frequent, high-energy features) and one third in the SAE
+  error term. The features that quantization visibly destroys (low survival correlation) are rare and do not matter
+  for GSM8K.
 - The best deployable intervention is the simplest: a constant mean-shift bias at layer 17 (estimated on 64 calibration
   sequences, no bf16 model at inference) recovers +2.6 [+0.2, +5.2] pts, 37% of the gap and significant; gain correction
   on the highest-energy features +2.4 [+0.0, +5.0] is borderline. The gated full-set gain run was skipped (subset delta
