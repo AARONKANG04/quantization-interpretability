@@ -1,18 +1,18 @@
 {
-  "git_sha": "b1e02a4",
+  "git_sha": "943102c",
   "args": {
     "ref": "bf16_rep",
     "quant": "q1_rep",
-    "raw_root": null,
+    "raw_root": "/Users/aaron/qi_archive/boxA/lm_eval_raw",
     "tasks": "gsm8k_cot,mmlu",
-    "selections": "/home/aaron/quantization-interpretability/results/phase3/selections.json",
+    "selections": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase3/selections.json",
     "primary": "fg_proj",
     "target": 0.8,
-    "out": "/home/aaron/quantization-interpretability/results/phase3/budget_sweep.json",
-    "memory_out": "/home/aaron/quantization-interpretability/results/phase3/memory.json"
+    "out": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase3/budget_sweep.json",
+    "memory_out": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase3/memory.json"
   },
-  "started": "2026-10-05T05:25:39",
-  "host": "aaron-rlvr-gigpo",
+  "started": "2026-10-05T02:34:41",
+  "host": "Aarons-MacBook-Pro-2.local",
   "layer_bytes": 135659520.0,
   "rows": [
     {

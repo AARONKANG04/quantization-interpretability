@@ -144,8 +144,11 @@ the frequent, high-energy part of the basis.** The best deployable fix is the si
 
 **Self-trained SAEs.** Two BatchTopK SAEs (32k features, k = 64) trained on 100M tokens of bf16 and of NVFP4
 activations reach 3.5% and 2.5% unexplained variance, with about 7.7k live features each (three quarters died
-during training). Shift accounting with the bf16-trained SAE as a second ruler is reported in `docs/FINDINGS.md`
-and `results/phase2/survival_L17_own.json`.
+during training), so they act as dictionaries of frequent features. Used as a second ruler, the bf16-trained SAE
+reproduces every qualitative result: its basis explains 96% of the shift, the energy concentration and the single
+dominant direction are identical under matched noise (basis properties), and NVFP4 damages fewer features than
+noise (2.4% vs 4.9% below a survival correlation of 0.8). Fragility is a property of rare features: this
+dense-feature dictionary sees a tenth of the feature-level damage that Gemma Scope's 65k dictionary reports.
 
 ## Phase 3: fix (mixed precision at equal memory)
 

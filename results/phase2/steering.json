@@ -1,5 +1,5 @@
 {
-  "git_sha": "c510e64",
+  "git_sha": "943102c",
   "args": {
     "layer": 17,
     "steer_dir": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase2/steer",
@@ -8,7 +8,7 @@
     "raw_root": "/Users/aaron/qi_archive/boxA/lm_eval_raw",
     "out": "/Users/aaron/Documents/Code/Github/quantization-interpretability/results/phase2/steering.json"
   },
-  "started": "2026-10-05T01:55:01",
+  "started": "2026-10-05T02:34:41",
   "host": "Aarons-MacBook-Pro-2.local",
   "layer": 17,
   "baseline_acc": 0.346,

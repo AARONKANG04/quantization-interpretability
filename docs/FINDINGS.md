@@ -167,3 +167,18 @@ Running record of results with their evidence files. Numbers here are copied fro
   on the highest-energy features +2.4 [+0.0, +5.0] is borderline. The gated full-set gain run was skipped (subset delta
   under 1 pt). Sanity arms: the bf16 model with the gain hook 42.4 vs bf16 41.6 on the same items.
   results/phase2/steering.json, results/phase2/steer/*.json, results/LEDGER.md
+
+## 2026-10-05, Phase 2: the self-trained SAE as a second ruler (boxA, layer 17, 12.25M tokens)
+
+- Two BatchTopK SAEs (32,768 features, k = 64) trained on 100M FineWeb-Edu tokens of bf16 and of NVFP4 layer-17
+  activations reach 3.5% and 2.5% unexplained variance, but only about 7.7k features stay alive (the rest went
+  dead during training despite the auxiliary loss), so they behave as 8k-feature dictionaries of very frequent
+  features (median 50k activations per feature vs 5k for Gemma Scope). results/phase2/sae_train/*.json
+- Shift accounting with the bf16-trained SAE reproduces every qualitative Gemma Scope result with an independent
+  dictionary: the basis explains 96% of the NVFP4 shift (error term 7%); the energy concentration (top 1% of
+  features = 87%) and the dominant direction (92% of the shift energy) are identical under matched noise (87%,
+  91%), so both are basis properties; and NVFP4 damages fewer features than noise: 2.4% of the 4,346 eligible
+  features fall below a survival correlation of 0.8 (median 0.954) vs 4.9% under noise (median 0.939). The
+  dense-feature dictionary sees far less feature-level damage than Gemma Scope's (37.7% below 0.8), consistent
+  with fragility being a property of rare features.
+  results/phase2/shift/{q1_own,c2_own}_L17_summary.json, results/phase2/survival_L17_own.json
