@@ -9,11 +9,13 @@ case "$cmd" in
   init) rm -rf "$Q"; mkdir -p "$Q/started" "$Q/done" "$Q/failed" "$Q/logs"; : > "$Q/jobs.txt"; echo "queue at $Q";;
   add) cat "$1" >> "$Q/jobs.txt"; echo "$(grep -c . "$Q/jobs.txt") jobs queued";;
   done) touch "$Q/done/$1"; echo "marked $1 done";;
+  requeue-started) for s in "$Q"/started/*; do n=$(basename "$s"); [ -e "$Q/done/$n" ] || [ -e "$Q/failed/$n" ] || { rmdir "$s" && echo "requeued $n"; }; done;;
+  retry-failed) for f in "$Q"/failed/*; do n=$(basename "$f"); rm -f "$f"; rmdir "$Q/started/$n" 2>/dev/null; echo "retrying $n"; done;;
   start-workers) n="${1:-8}"; for g in $(seq 0 $((n - 1))); do
       tmux new-session -d -s "worker$g" "bash -lc 'cd $(pwd) && Q=$Q scripts/remote/queue.sh worker $g'"; done; tmux ls;;
   worker)
     gpu="$1"; cd "$(dirname "$0")/../.." || exit 1
-    export PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf TOKENIZERS_PARALLELISM=false PYTORCH_ALLOC_CONF=expandable_segments:True
+    export PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf TOKENIZERS_PARALLELISM=false PYTORCH_ALLOC_CONF=expandable_segments:True UV_PROJECT_ENVIRONMENT=/data/venv
     set -a; . ./.env; set +a
     while true; do
       claimed=""
@@ -47,5 +49,5 @@ case "$cmd" in
     [ -d "$Q/failed" ] && [ "$(ls $Q/failed | wc -l)" -gt 0 ] && echo "FAILED: $(ls $Q/failed | tr '\n' ' ')"
     tail -n 8 "$Q/logs/_workers.log" 2>/dev/null
     nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader 2>/dev/null;;
-  *) echo "usage: queue.sh init|add <file>|done <name>|worker <gpu>|start-workers <n>|status"; exit 2;;
+  *) echo "usage: queue.sh init|add <file>|done <name>|requeue-started|retry-failed|worker <gpu>|start-workers <n>|status"; exit 2;;
 esac

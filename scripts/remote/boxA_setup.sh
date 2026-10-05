@@ -3,11 +3,12 @@
 # cache, bf16/q1/c2 checkpoints). Idempotent; safe to rerun. Run from the repo root on the box.
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-export PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf TOKENIZERS_PARALLELISM=false PYTORCH_ALLOC_CONF=expandable_segments:True
+export PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf TOKENIZERS_PARALLELISM=false PYTORCH_ALLOC_CONF=expandable_segments:True UV_PROJECT_ENVIRONMENT=/data/venv
 set -a; . ./.env; set +a
 mkdir -p logs /data/ckpt /data/kl /data/saes /data/buffers /data/lens /data/hf /data/lm_eval_raw /data/shift /data/saliency /data/selections
 command -v uv >/dev/null || (curl -LsSf https://astral.sh/uv/install.sh | sh)
 sudo -n apt-get update -qq >/dev/null 2>&1 || true; sudo -n apt-get install -y -qq python3.10-dev >/dev/null 2>&1 || true
+grep -q UV_PROJECT_ENVIRONMENT ~/.bashrc || printf '\nexport PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf UV_PROJECT_ENVIRONMENT=/data/venv TOKENIZERS_PARALLELISM=false\n' >> ~/.bashrc
 uv sync --extra dev --extra box >/dev/null
 uv tool install -q "huggingface_hub[cli]" >/dev/null 2>&1 || true
 hf auth login --token "$HF_TOKEN" >/dev/null 2>&1 || true
