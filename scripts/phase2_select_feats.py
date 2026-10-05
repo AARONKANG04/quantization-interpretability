@@ -19,6 +19,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--shift", required=True); ap.add_argument("--top-frac", type=float, default=0.01)
     ap.add_argument("--seed", type=int, default=0); ap.add_argument("--out", required=True)
+    ap.add_argument("--merge", action="store_true", help="keep every set already in --out, only add missing keys")
     args = ap.parse_args()
     d = torch.load(args.shift)
     pf = d["per_feature"]
@@ -41,12 +42,26 @@ def main():
     rnd = random.Random(args.seed)
     pool = [int(i) for i in active.nonzero().flatten().tolist() if int(i) not in set(top)]
     control = rnd.sample(pool, n_top)
-    write_json(args.out, {**run_meta(args), "layer": d["layer"], "sae": d["sae"], "n_active": int(active.sum()), "n_top": n_top,
-                          "top": top, "top_norm": top_norm, "survival": survival, "rel_energy": rel_energy, "suppressed": suppressed, "newly_dead": newly_dead,
+    # larger sets for the feature-level restore curve (oracle patch): 5% and 10% by survival, by energy, and random
+    larger = {}
+    for frac in (0.05, 0.10):
+        n = int(round(frac * int(active.sum()))); tag = f"{int(frac * 100)}pct"
+        larger[f"survival_{tag}"] = [int(i) for i in surv_score.argsort(descending=True)[:n]]
+        larger[f"top_{tag}"] = [int(i) for i in order[:n]]
+        larger[f"control_{tag}"] = random.Random(args.seed + 1).sample([int(i) for i in active.nonzero().flatten().tolist()], n)
+    out = {**run_meta(args), "layer": d["layer"], "sae": d["sae"], "n_active": int(active.sum()), "n_top": n_top,
+                          "top": top, "top_norm": top_norm, "survival": survival, "rel_energy": rel_energy, "suppressed": suppressed, "newly_dead": newly_dead, **larger,
                           "gains_top": {str(i): float(gains[i]) for i in set(top) | set(survival) | set(rel_energy)}, "control": control,
                           "survival_corr_threshold": float(corr[survival[-1]]) if survival else None,
                           "n_corr_below_0.5": int(((corr < 0.5) & eligible).sum()), "n_corr_below_0.8": int(((corr < 0.8) & eligible).sum()), "n_eligible": int(eligible.sum()),
-                          "energy_share_top": float(energy[top].sum() / energy[active].sum())})
+                          "energy_share_top": float(energy[top].sum() / energy[active].sum())}
+    import json, os
+    if args.merge and os.path.exists(args.out):
+        old = json.loads(open(args.out).read())
+        same = {k: old[k] == out[k] for k in ("top", "survival", "control") if k in old}
+        print("merge: existing sets identical to recomputed:", same)
+        out = {**out, **{k: v for k, v in old.items() if k not in ("git_sha", "started", "host", "args")}, "merged_from": old.get("started")}
+    write_json(args.out, out)
     print({"n_active": int(active.sum()), "n_top": n_top, "suppressed": len(suppressed), "newly_dead": len(newly_dead), "n_corr_below_0.5": int(((corr < 0.5) & eligible).sum()), "survival_thr": float(corr[survival[-1]]),
            "energy_share_top": float(energy[top].sum() / energy[active].sum())})
 

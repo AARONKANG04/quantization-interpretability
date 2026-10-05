@@ -31,12 +31,16 @@ for mode in gain oracle; do
 done
 e steer_gain_full "steer_gain,steer_none" "if $P scripts/phase2_steer_gate.py results/phase2/steer/q1_L${L}_none.json results/phase2/steer/q1_L${L}_gain.json; then $P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set survival --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json; else echo skipped, no signal on the subset; fi"
 e steer_none_full steer_none "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --mode none --limit 1319 --out results/phase2/steer/q1_L${L}_none_full.json"
+# --- feature-level restore curve: oracle patch of growing feature sets, up to the whole SAE basis ---
+for set in all survival_5pct survival_10pct top_5pct top_10pct control_5pct control_10pct; do
+  e steer_oracle_$set feats_ready "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode oracle --set $set --limit 500 --out results/phase2/steer/q1_L${L}_oracle_$set.json"
+done
 # --- second ruler: the self-trained bf16 SAE at the same layer (needs sae_bf16) ---
 OWN=/data/saes/bf16_L${L}_w32768_k64.pt
 for c in q1 c2; do e shift_${c}_L${L}_own sae_bf16_L$L "$P scripts/phase2_shift.py --layer $L --ckpt-b /data/ckpt/$c --name ${c}_own --sae-file $OWN --tokens $SHIFT_TOK --batch 4"; done
 e survival_own_L$L "shift_q1_L${L}_own,shift_c2_L${L}_own" "$P scripts/phase2_compare_controls.py --layer $L --names q1_own c2_own --out results/phase2/survival_L${L}_own.json"
 # --- fp32 noise floor through the transformers backend ---
-e c1_fp32_mmlu  "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name c1_fp32_mmlu --tasks mmlu --limit 70 --backend hf --dtype float32 --hf-batch 16"
+e c1_fp32_mmlu  "" "$P scripts/phase0_eval.py --ckpt /data/ckpt/bf16 --name c1_fp32_mmlu --tasks mmlu --limit 70 --backend hf --dtype float32 --hf-batch 4"
 # --- fast fillers: quantize-one-layer sweep, controls, extra SAE layers ---
 for r in 0-8 9-16 17-25 26-33; do e qone_$r "" "$P scripts/phase1_layer_sweep.py --mode quantize_one --layers $r --tokens $T --ref $R --batch 2 --out $SW"; done
 e ckpt_q3 "" "$P scripts/phase0_pilot.py --scheme fp8_e4m3 --out /data/ckpt/q3 --stats-out results/phase0/pilot/q3.json"

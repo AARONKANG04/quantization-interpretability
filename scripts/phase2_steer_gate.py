@@ -10,7 +10,7 @@ import sys
 
 def acc(path):
     d = json.load(open(path))
-    r = d.get("results", d)
+    r = d.get("metrics") or d.get("results", d)
     for k in ("exact_match,strict-match", "strict", "exact_match"):
         if isinstance(r, dict) and isinstance(r.get(k), (int, float)):
             return float(r[k])

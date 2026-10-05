@@ -57,6 +57,8 @@ def main():
     if args.mode not in ("none", "mean_shift", "full_residual"):
         sae = JumpReLUSAE.load(args.sae_file, device="cuda") if args.sae_file else load_gemma_scope2(args.layer, args.width, args.l0, device="cuda")
     feats_info = json.loads(Path(args.feats).read_text()) if args.feats else {}
+    if args.set == "all" and sae is not None:  # every SAE feature: patches the whole SAE-explained shift, leaves the error term
+        feats_info = {**feats_info, "all": list(range(sae.d_sae))}
     ids = feats_info.get("control" if args.mode.endswith("_random") else args.set, [])
     gain_src = feats_info.get(args.set, []) if args.mode.endswith("_random") else ids  # the control reuses the set's gains
     ids = ids[: len(gain_src)] if args.mode.endswith("_random") else ids
@@ -97,8 +99,13 @@ def main():
         for c in reversed(ctx):
             c.__exit__(None, None, None)
     r = res["results"]["gsm8k_cot"]
-    items = [{"doc_id": s["doc_id"], "strict": s.get("exact_match,strict-match", s.get("exact_match")),
-              "flexible": s.get("exact_match,flexible-extract")} for s in res["samples"]["gsm8k_cot"]]
+    # lm-eval emits one sample row per (doc, filter); fold them into one record per doc with both filters
+    by_doc = {}
+    for smp in res["samples"]["gsm8k_cot"]:
+        rec = by_doc.setdefault(smp["doc_id"], {"doc_id": smp["doc_id"], "strict": None, "flexible": None})
+        key = "strict" if str(smp.get("filter", "")).startswith("strict") else "flexible"
+        rec[key] = smp.get("exact_match")
+    items = [by_doc[k] for k in sorted(by_doc)]
     write_json(args.out, {**run_meta(args), "mode": args.mode, "set": args.set, "n_feats": len(ids), "layer": args.layer,
                           "metrics": {k: v for k, v in r.items() if isinstance(v, (int, float))}, "items": items})
     print(args.mode, args.set, {k: round(v, 4) for k, v in r.items() if isinstance(v, (int, float)) and "stderr" not in k})
