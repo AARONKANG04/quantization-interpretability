@@ -94,3 +94,18 @@ Running record of results with their evidence files. Numbers here are copied fro
 - Far fewer features change frequency at layer 29: 787 suppressed and 466 amplified (vs 2,168 and 6,330 at layer 17),
   347 newly dead, 304 newly alive. The C2 control and the survival comparison at layer 29 follow.
   results/phase2/shift/q1_L29_summary.json
+
+## 2026-10-05, Phase 2: NVFP4 vs matched noise at layer 29 (boxS)
+
+- The noise control reproduces the layer-29 shift structure too: the top direction holds 45% of the shift energy under
+  matched noise vs 49% under NVFP4, per-feature concentration is identical (top 1% = 37.3% vs 37.4%, Gini 0.86 vs
+  0.85), and the mean-shift share is small in both (7.1% vs 2.9%). The single dominant direction is therefore a
+  property of the layer-29 residual stream (how it responds to any weight perturbation), not of NVFP4.
+- Features survive far better at layer 29 than at layer 17: among 47,320 eligible features (at least 200 bf16
+  activations), NVFP4 drives 0.54% below a survival correlation of 0.5 (18.1% below 0.8; median 0.92) vs 12.7% /
+  37.7% / 0.86 at layer 17. Matched noise is again more destructive (1.48% below 0.5; 23.1% below 0.8; median 0.90).
+  Jaccard of the damaged sets (corr < 0.5) is 0.36. NVFP4 suppresses 787 features at layer 29 vs 2,323 for noise.
+  results/phase2/shift/{q1,c2}_L29_summary.json, results/phase2/survival_L29.json
+- Reading across layers: the layer-17 feature basis records most of the damage (one third of its features lose
+  survival correlation below 0.8), while at layer 29 the shift is large in norm but mostly along one shared direction
+  that the SAE features ride together. Steering and saliency therefore use the layer-17 survival set.
