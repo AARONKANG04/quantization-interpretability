@@ -10,6 +10,10 @@ case "$cmd" in
   add) cat "$1" >> "$Q/jobs.txt"; echo "$(grep -c . "$Q/jobs.txt") jobs queued";;
   done) touch "$Q/done/$1"; echo "marked $1 done";;
   requeue-started) for s in "$Q"/started/*; do n=$(basename "$s"); [ -e "$Q/done/$n" ] || [ -e "$Q/failed/$n" ] || { rmdir "$s" && echo "requeued $n"; }; done;;
+  bump) for n in "$@"; do line=$(grep -m1 "^$n|" "$Q/jobs.txt") || { echo "no job $n"; continue; }
+      { echo "$line"; grep -v "^$n|" "$Q/jobs.txt"; } > "$Q/jobs.tmp" && mv "$Q/jobs.tmp" "$Q/jobs.txt"; echo "bumped $n to the front"; done;;
+  replace) n="$1"; new=$(grep -m1 "^$n|" "$2") || { echo "no $n in $2"; exit 1; }
+      awk -v n="$n" -v l="$new" -F'|' '$1==n{print l; next}{print}' "$Q/jobs.txt" > "$Q/jobs.tmp" && mv "$Q/jobs.tmp" "$Q/jobs.txt"; echo "replaced $n";;
   retry-failed) for f in "$Q"/failed/*; do n=$(basename "$f"); rm -f "$f"; rmdir "$Q/started/$n" 2>/dev/null; echo "retrying $n"; done;;
   start-workers) n="${1:-8}"; for g in $(seq 0 $((n - 1))); do
       tmux new-session -d -s "worker$g" "bash -lc 'cd $(pwd) && Q=$Q scripts/remote/queue.sh worker $g'"; done; tmux ls;;
@@ -49,5 +53,5 @@ case "$cmd" in
     [ -d "$Q/failed" ] && [ "$(ls $Q/failed | wc -l)" -gt 0 ] && echo "FAILED: $(ls $Q/failed | tr '\n' ' ')"
     tail -n 8 "$Q/logs/_workers.log" 2>/dev/null
     nvidia-smi --query-gpu=index,memory.used,utilization.gpu --format=csv,noheader 2>/dev/null;;
-  *) echo "usage: queue.sh init|add <file>|done <name>|requeue-started|retry-failed|worker <gpu>|start-workers <n>|status"; exit 2;;
+  *) echo "usage: queue.sh init|add <file>|done <name>|bump <name>...|replace <name> <file>|requeue-started|retry-failed|worker <gpu>|start-workers <n>|status"; exit 2;;
 esac

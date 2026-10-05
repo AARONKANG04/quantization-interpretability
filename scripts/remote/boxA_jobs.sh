@@ -29,7 +29,7 @@ done
 for mode in gain oracle; do
   e steer_${mode}_top feats_ready "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode $mode --set top --limit 500 --out results/phase2/steer/q1_L${L}_${mode}_top.json"
 done
-e steer_gain_full steer_gain "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set survival --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json"
+e steer_gain_full "steer_gain,steer_none" "if $P scripts/phase2_steer_gate.py results/phase2/steer/q1_L${L}_none.json results/phase2/steer/q1_L${L}_gain.json; then $P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --feats $FE --mode gain --set survival --limit 1319 --out results/phase2/steer/q1_L${L}_gain_full.json; else echo skipped, no signal on the subset; fi"
 e steer_none_full steer_none "$P scripts/phase2_steer_eval.py --ckpt-b /data/ckpt/q1 --layer $L --mode none --limit 1319 --out results/phase2/steer/q1_L${L}_none_full.json"
 # --- second ruler: the self-trained bf16 SAE at the same layer (needs sae_bf16) ---
 OWN=/data/saes/bf16_L${L}_w32768_k64.pt
