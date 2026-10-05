@@ -7,8 +7,8 @@ SHIFT_TOK="/data/kl/kl_2m.pt /data/kl/lens_10m.pt /data/kl/gsm8k_test.pt"
 FE=results/phase2/feats_q1_L$L.json
 e() { echo "$1|$2|$3"; }
 # --- critical path ---
-e sae_bf16_L$L "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/bf16 --name bf16 --layer $L --tokens 100000000"
-e sae_q1_L$L   "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/q1   --name q1   --layer $L --tokens 100000000"
+e sae_bf16_L$L "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/bf16 --name bf16 --layer $L --tokens 100000000 --resume"
+e sae_q1_L$L   "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/q1   --name q1   --layer $L --tokens 100000000 --resume"
 e lens_train   "" "$P scripts/phase1_tuned_lens.py train --tokens /data/kl/lens_10m.pt --out /data/lens/gemma-3-4b-pt.pt"
 e ranked_build "" "$P scripts/phase1_ranked_curve.py --sweep $SW --out results/phase1/ranked_order.json"
 e shift_q1_L${L}_v2 "" "$P scripts/phase2_shift.py --layer $L --ckpt-b /data/ckpt/q1 --name q1v2 --tokens $SHIFT_TOK --batch 4"
@@ -52,5 +52,5 @@ for s in 1 2; do for n in 1 2 3 5 8; do
   e rc_eval_random_s${s}_top$n ranked_build_s12 "$P scripts/phase0_eval.py --ckpt /data/ckpt/random_s${s}_top$n --name rc_random_s${s}_top$n --tasks gsm8k_cot --gpu-util 0.8 && $P scripts/phase0_eval.py --ckpt /data/ckpt/random_s${s}_top$n --name rc_random_s${s}_top${n}_mmlu --tasks mmlu --limit 70 --gpu-util 0.8"
 done; done
 for r in 0-3 4-7 8-11 12-15 16-19 20-23 24-28 29-33; do e qmat_$r "" "$P scripts/phase1_layer_sweep.py --mode quantize_one_matrix --layers $r --tokens $T --ref $R --batch 2 --out $SW"; done
-e sae_bf16_L29 "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/bf16 --name bf16 --layer 29 --tokens 100000000"
-e sae_q1_L29   "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/q1   --name q1   --layer 29 --tokens 100000000"
+e sae_bf16_L29 "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/bf16 --name bf16 --layer 29 --tokens 100000000 --resume"
+e sae_q1_L29   "" "$P scripts/phase2_train_sae.py --model-ckpt /data/ckpt/q1   --name q1   --layer 29 --tokens 100000000 --resume"

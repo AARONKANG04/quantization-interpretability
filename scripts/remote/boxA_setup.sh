@@ -5,6 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 export PATH="$HOME/.local/bin:$PATH" HF_HOME=/data/hf TOKENIZERS_PARALLELISM=false PYTORCH_ALLOC_CONF=expandable_segments:True UV_PROJECT_ENVIRONMENT=/data/venv
 set -a; . ./.env; set +a
+mountpoint -q /data || sudo -n scripts/remote/mount_data.sh data "$USER"
 mkdir -p logs /data/ckpt /data/kl /data/saes /data/buffers /data/lens /data/hf /data/lm_eval_raw /data/shift /data/saliency /data/selections
 command -v uv >/dev/null || (curl -LsSf https://astral.sh/uv/install.sh | sh)
 sudo -n apt-get update -qq >/dev/null 2>&1 || true; sudo -n apt-get install -y -qq python3.10-dev >/dev/null 2>&1 || true
